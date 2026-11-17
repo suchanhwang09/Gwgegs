@@ -123,11 +123,11 @@
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 w-full shrink-0">
                     <h3 class="text-xl font-black text-sky-400 mb-3">🎉 최근 패치 노트</h3>
                     <ul class="list-disc pl-5 space-y-2 text-sm font-bold leading-relaxed break-all whitespace-normal">
+                        <li><span class="text-white">동호 소속 변경:</span> 동호 캐릭터의 카테고리가 '일반 학생'에서 '늑대 무리'로 변경되었습니다!</li>
                         <li><span class="text-white">신규 참전 [기욱]:</span> 체력 120의 무거운 떡대 등장! 타격 4회 및 피격 6회 달성 시 폭주하여 가장 가까운 적을 날려버리고 다음 적을 깔아뭉갭니다. (5% 즉사 효과, 으깨짐 부여!)</li>
                         <li><span class="text-white">용우 물바다 상향:</span> 샤워기 함정에 걸렸을 때 물바다 발동 확률이 기존 20%에서 30%로 증가했습니다!</li>
                         <li><span class="text-white">태성이 스킬 떡상:</span> [군주의 지배] 해제 시 체력 15 회복! 또한 1:1 상황에서는 '심장 파괴자'가 발동해 적 배후로 순간이동하여 날려버립니다.</li>
                         <li><span class="text-white">현민이 밸런스 패치:</span> 광역 반격 데미지가 너무 강해 40에서 30으로 하향 조정되었습니다.</li>
-                        <li><span class="text-white">찬휘 룰렛 버프:</span> 러시안룰렛 발동 시, 약실의 총알을 투시(직감)할 확률이 기존 25%에서 50%로 상향!</li>
                     </ul>
                 </div>
                 <div class="bg-slate-900 p-5 rounded-xl border border-purple-900/50 relative overflow-hidden w-full shrink-0">
@@ -243,11 +243,11 @@
             'TAESEONG': { name: '태성', icon: '👻', category: '도현이 무리', skillDesc: '타격 4회(1:1은 3회) 시 차징. 다인전: 적 지배/조종. 1:1: 심장파괴자(배후이동 20+벽충돌 10)', maxHp: 100, maxBounces: 0, maxHits: 4 },
             'YONGWOO': { name: '용우', icon: '🚿', category: '일진', skillDesc: '벽 6번 튕기면 샤워기 함정 생성. 적이 밟으면 물바다 및 미끄러짐 부여', maxHp: 100, maxBounces: 6 },
             'NAMGYU': { name: '남규', icon: '🍪', category: '일반 학생', skillDesc: '벽 2번 튕길 때마다 두쫀쿠 투사체 발사. 5번 맞으면 당뇨(지속 피해)', maxHp: 100, maxBounces: 2 },
-            'DONGHO': { name: '동호', icon: '🐺', category: '일반 학생', skillDesc: '벽 5번, 타격 3번 시 20초간 늑대인간 폭주 (초고속, 제동 불가)', maxHp: 100, maxBounces: 5, maxHits: 3 },
+            'DONGHO': { name: '동호', icon: '🐺', category: '늑대 무리', skillDesc: '벽 5번, 타격 3번 시 20초간 늑대인간 폭주 (초고속, 제동 불가)', maxHp: 100, maxBounces: 5, maxHits: 3 },
             'GIUK': { name: '기욱', icon: '🪨', category: '일반 학생', skillDesc: '무거운 떡대. 타격 4회 및 피격 6회 시 즉시 폭주. 가장 가까운 적을 멀리 날려버리고(벽 충돌 시 1~2 피해), 다음 적을 깔아뭉개 20피해(5% 즉사) 및 으깨짐(느려짐) 부여.', maxHp: 120, maxBounces: 0, maxHits: 4, maxDamaged: 6 }
         };
 
-        const CATEGORIES = ['일진', '일반 학생', '도현이 무리'];
+        const CATEGORIES = ['일진', '일반 학생', '도현이 무리', '늑대 무리'];
         const PLAYER_THEMES = [
             { name: 'P1', color: '#06b6d4' }, { name: 'P2', color: '#f43f5e' }, { name: 'P3', color: '#22c55e' },
             { name: 'P4', color: '#eab308' }, { name: 'P5', color: '#a855f7' }, { name: 'P6', color: '#f97316' }, 
