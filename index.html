@@ -106,12 +106,11 @@
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 w-full shrink-0">
                     <h3 class="text-xl font-black text-sky-400 mb-3">🎉 신규 패치 완료! (통합본)</h3>
                     <ul class="list-disc pl-5 space-y-2 text-sm font-bold leading-relaxed break-all whitespace-normal">
+                        <li><span class="text-amber-400">신규 참전 [현우] (기욱이 무리):</span> 탁구공의 달인 참전! 벽 4회 충돌 시 탁구공을 서브(발사)하며, 현우 턴에 적과 닿으면 1~2 피해를 입힙니다. 필드에 공이 있을 때 다시 벽 4회를 채우고 직접 탁구공을 들이받으면 관통(5뎀) 유도 스파이크(30뎀)를 발사합니다!</li>
                         <li><span class="text-rose-400">늑대인간 폭주 무게감 상향 (동호):</span> 동호가 늑대인간으로 폭주하는 동안 압도적인 힘과 무게감(밀도)을 얻어, 가장 무거운 기욱이조차 들이받으면 시원하게 튕겨 나갑니다!</li>
                         <li><span class="text-emerald-400">물리 밸런스 패치 (기욱 & 현민):</span> 기욱이는 묵직한 체중에 맞게 이동 속도가 소폭 감소한 대신 적을 훨씬 강하게 밀쳐내며, 폭주 시 적을 날려버리는 힘이 대폭 상향되었습니다! 반면 현민이는 가벼운 체중 덕분에 더욱 빠르게 날아가고 적을 약하게 밀쳐냅니다.</li>
-                        <li><span class="text-yellow-400">데이터 소실 버그 완벽 수정:</span> 윤성과 동우가 게임 내에 완벽하게 부활했습니다!</li>
                         <li><span class="text-yellow-400">동우 완벽 적용 완료:</span> 5번 튕기면 완벽하게 동그란 뱀(🐍)➔이무기(🌊🐉)➔용(👑🐉)을 발사하며, 유도/관통/스택 효과가 모두 정상 발동합니다!</li>
                         <li><span class="text-orange-400">윤성 완벽 적용 완료:</span> 벽 3회 튕김 및 3회 타격 달성 시 발차기(골절 디버프 3종) 또는 지르기(치명타/멍) 스킬이 화려하게 발동합니다! 치명타 걸린 적은 다음턴 70피해 확정!</li>
-                        <li><span class="text-slate-400">기욱 & 동우 소속 확정:</span> '기욱이 무리' 카테고리로 독립되었습니다.</li>
                     </ul>
                 </div>
 
@@ -230,7 +229,8 @@
             'JUNWON': { name: '준원', icon: '⚡', category: '일반 학생', skillDesc: '벽 2번 튕기고 피격 7회 시 폭풍의 도약! 대상에게 돌진해 광역 30피해 및 기절(1턴 휴식) 부여, 자신 20회복', maxHp: 100, maxBounces: 2, maxDamaged: 7 },
             'YOONSUNG': { name: '윤성', icon: '🥋', category: '일반 학생', skillDesc: '벽 3번 튕기고 타격 3회 달성 시 발차기(골절) 또는 지르기(멍/치명타). 치명타는 다음 턴 적에게 70 확정 피해', maxHp: 100, maxBounces: 3, maxHits: 3 },
             'GIUK': { name: '기욱', icon: '🪨', category: '기욱이 무리', skillDesc: '무거운 떡대. 타격 4회 및 피격 6회 시 폭주. 적을 날리고 다음 적을 깔아뭉개 20피해(5% 즉사) 및 으깨짐 부여.', maxHp: 120, maxBounces: 0, maxHits: 4, maxDamaged: 6 },
-            'DONGWOO': { name: '동우', icon: '🐉', category: '기욱이 무리', skillDesc: '벽 5회 충돌 시 뱀(🐍)➔이무기(🌊🐉)➔용(👑🐉) 둥근 투사체 발사! 스택 누적 데미지와 5스택 시 즉사 발동.', maxHp: 100, maxBounces: 5 }
+            'DONGWOO': { name: '동우', icon: '🐉', category: '기욱이 무리', skillDesc: '벽 5회 충돌 시 뱀(🐍)➔이무기(🌊🐉)➔용(👑🐉) 둥근 투사체 발사! 스택 누적 데미지와 5스택 시 즉사 발동.', maxHp: 100, maxBounces: 5 },
+            'HYUNWOO': { name: '현우', icon: '🏓', category: '기욱이 무리', skillDesc: '벽 4번 튕기면 탁구공 서브(발사). 현우 턴에 적과 닿으면 1~2 피해. 스킬 차징 후 필드의 탁구공에 직접 부딪히면 가장 먼 적을 추적하는 관통(5뎀) 유도 스파이크(30뎀) 발사!', maxHp: 100, maxBounces: 4 }
         };
 
         const CATEGORIES = ['일진', '일반 학생', '도현이 무리', '늑대 무리', '기욱이 무리'];
@@ -238,7 +238,8 @@
             { name: 'P1', color: '#06b6d4' }, { name: 'P2', color: '#f43f5e' }, { name: 'P3', color: '#22c55e' },
             { name: 'P4', color: '#eab308' }, { name: 'P5', color: '#a855f7' }, { name: 'P6', color: '#f97316' }, 
             { name: 'P7', color: '#cbd5e1' }, { name: 'P8', color: '#ec4899' }, { name: 'P9', color: '#10b981' },
-            { name: 'P10', color: '#38bdf8' }, { name: 'P11', color: '#facc15' }, { name: 'P12', color: '#fb7185' }
+            { name: 'P10', color: '#38bdf8' }, { name: 'P11', color: '#facc15' }, { name: 'P12', color: '#fb7185' },
+            { name: 'P13', color: '#14b8a6' }, { name: 'P14', color: '#8b5cf6' }
         ];
 
         let pickupState = {};
@@ -291,7 +292,7 @@
             const btn = document.getElementById('start-battle-btn');
             document.getElementById('header-pickup-count').textContent = `출전: ${selectedCount}명`;
             if (selectedCount < 2) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최소 2명)`; } 
-            else if (selectedCount > 12) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최대 12명)`; } 
+            else if (selectedCount > 13) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최대 13명)`; } 
             else { btn.disabled = false; btn.innerHTML = `전투 시작! (<span class="text-white">${selectedCount}</span>명 출전)`; }
         }
 
@@ -390,7 +391,8 @@
                     armFracture: false, armFractureRoundFlag: false, 
                     fingerFracture: false, fingerFractureRoundFlag: false,
                     bruiseTimer: null, critDoom: false,
-                    dongwooProbs: { snake: 0.70, imugi: 0.25, dragon: 0.05 }, snakeStacks: 0, imugiStacks: 0, dragonStacks: 0
+                    dongwooProbs: { snake: 0.70, imugi: 0.25, dragon: 0.05 }, snakeStacks: 0, imugiStacks: 0, dragonStacks: 0,
+                    pingpongBall: null
                 });
                 Composite.add(engine.world, ball);
             }
@@ -583,6 +585,35 @@
             
             const effectiveMaxBounces = Math.max(1, CHARACTERS[p.charKey].maxBounces - (p.dominatedBy ? 1 : 0));
 
+            // 현우 탁구공 발사 (필드에 없을 때만 서브로 발사, 이미 필드에 있으면 일반 이동하여 직접 들이받음)
+            if (p.charKey === 'HYUNWOO' && p.skillCharge >= effectiveMaxBounces && (!p.pingpongBall || !Composite.allBodies(engine.world).includes(p.pingpongBall))) {
+                playSound('spit'); 
+                let sx = p.ball.position.x + norm.x * 40; 
+                let sy = p.ball.position.y + norm.y * 40;
+                
+                const pr = Bodies.circle(sx, sy, 8, {
+                    isSensor: false, 
+                    restitution: 1.05, 
+                    frictionAir: 0.002,
+                    friction: 0,
+                    density: 0.0001, 
+                    label: 'hyunwoo_pingpong',
+                    render: { fillStyle: '#ffffff', strokeStyle: '#f97316', lineWidth: 2 }
+                });
+                pr.customData = { source: p, isSpike: false, spikeTarget: null, piercedIds: new Set() };
+                Composite.add(engine.world, pr);
+                Body.setVelocity(pr, { x: norm.x * fl * 0.4, y: norm.y * fl * 0.4 });
+                
+                p.pingpongBall = pr;
+                p.skillCharge = 0;
+                
+                Body.setVelocity(p.ball, { x: 0, y: 0 });
+                
+                showFloatingText("🏓 서브!", p.ball.position, '#ffffff', '20px');
+                gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') checkTurnTimeout(); }, 8000);
+                return; 
+            }
+
             if (p.charKey === 'DONGHO' && p.skillCharge >= effectiveMaxBounces && p.hitCharge >= CHARACTERS['DONGHO'].maxHits && !p.werewolf) {
                 playDonghoBgm(); 
                 Body.scale(p.ball, 1.5, 1.5); 
@@ -608,12 +639,34 @@
                 Body.setVelocity(p.ball, { x: norm.x*fl*vm, y: norm.y*fl*vm });
             }
 
-            gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') forceTurnEnd(); }, p.werewolf?21000:6000);
+            gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') checkTurnTimeout(); }, p.werewolf ? 21000 : 6000);
+        }
+
+        function checkTurnTimeout() {
+            if (gameState !== 'MOVING') return;
+            const activeP = players[currentPlayerIndex];
+            const physicalTurnPlayer = activeP ? (activeP.dominating ? activeP.dominating : activeP) : null;
+            
+            // 현우 턴이거나 스파이크가 날아가는 중일 때 탁구공이 아직 움직이고 있으면 강제 종료하지 않고 계속 기다림
+            const isPingpongMoving = Composite.allBodies(engine.world).some(b => {
+                if (b.label !== 'hyunwoo_pingpong') return false;
+                const hw = b.customData ? b.customData.source : null;
+                const isSpike = b.customData && b.customData.isSpike;
+                const isHwTurn = hw && !hw.isDead && physicalTurnPlayer === hw;
+                const sp = Vector.magnitude(b.velocity);
+                return (isHwTurn || isSpike) && (sp >= 0.25 || isSpike);
+            });
+
+            if (isPingpongMoving) {
+                turnTimeout = setTimeout(checkTurnTimeout, 500);
+            } else {
+                forceTurnEnd();
+            }
         }
 
         function scheduleAITurnIfNeeded() {
             clearTimeout(aiActionTimeout); if (gameState !== 'AIMING') return; const p = players[currentPlayerIndex]; if (!p || p.isDead) return;
-            if (p.isStunned) { forceTurnEnd(); return; }
+            if (p.isStunned) { setTimeout(() => { if(gameState==='AIMING') forceTurnEnd(); }, 400); return; }
             const physicalPlayer = p.dominating ? p.dominating : p;
             const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer;
             if (!controller.isAI) return;
@@ -659,6 +712,17 @@
                 targetP.hp = 0; targetP.isDead = true; showFloatingText("💀 탈락!", targetP.ball.position, '#94a3b8'); Composite.remove(engine.world, targetP.ball);
                 if (eatenPlayer === targetP) { eatenPlayer = null; eaterPlayer = null; }
                 if (sourceP && sourceP.charKey === 'ME') sourceP.skillCharge = 0;
+
+                // 사망한 캐릭터가 소환했던 탁구공/투사체 정리
+                if (targetP.pingpongBall) {
+                    Composite.remove(engine.world, targetP.pingpongBall);
+                    targetP.pingpongBall = null;
+                }
+                Composite.allBodies(engine.world).forEach(b => {
+                    if (b.customData && b.customData.source === targetP) {
+                        Composite.remove(engine.world, b);
+                    }
+                });
                 
                 if (targetP.dominatedBy) {
                     let t = targetP.dominatedBy;
@@ -949,7 +1013,7 @@
                                     let source = proj.customData.source;
                                     
                                     if (type === 'snake') {
-                                        Composite.remove(engine.world, proj); 
+                                        Composite.remove(engine.world, proj);
                                         dealDamage(dp, Math.floor(Math.random()*4)+5, source);
                                         handleDongwooStack(dp, 'snake', source);
                                     } else if (type === 'imugi') {
@@ -959,13 +1023,111 @@
                                         if (dp === proj.customData.target) {
                                             dealDamage(dp, 30, source);
                                             handleDongwooStack(dp, 'dragon', source);
-                                            Composite.remove(engine.world, proj); 
+                                            Composite.remove(engine.world, proj);
                                         } else {
                                             dealDamage(dp, 10, source);
                                             handleDongwooStack(dp, 'dragon', source);
                                         }
                                     }
                                     checkWin();
+                                }
+                            }
+                        }
+                        return;
+                    }
+
+                    // 현우 탁구공 충돌 로직
+                    if (bodyA.label === 'hyunwoo_pingpong' || bodyB.label === 'hyunwoo_pingpong') {
+                        const pingpong = bodyA.label === 'hyunwoo_pingpong' ? bodyA : bodyB; 
+                        const other = bodyA.label === 'hyunwoo_pingpong' ? bodyB : bodyA;
+                        
+                        if (other.label === 'wall') { 
+                            playSound('bounce'); 
+                            return; 
+                        }
+                        
+                        let dp = players.find(p => p.ball === other);
+                        if (dp) { 
+                            let hw = pingpong.customData.source;
+                            const ap = players[currentPlayerIndex];
+                            const activePhysicalPlayer = ap.dominating ? ap.dominating : ap;
+
+                            if (dp === hw) {
+                                // 스파이크 날아가는 도중이거나 현우 턴이 아니면 무시
+                                if (pingpong.customData.isSpike || activePhysicalPlayer !== hw) return;
+
+                                const hwMaxB = Math.max(1, CHARACTERS['HYUNWOO'].maxBounces - (hw.dominatedBy ? 1 : 0));
+                                if (hw.skillCharge >= hwMaxB) {
+                                    // 현우 턴 + 스킬 차징된 상태에서 직접 탁구공을 들이받았을 때 -> 관통 유도 스파이크 발동!
+                                    hw.skillCharge = 0;
+                                    pingpong.customData.isSpike = true;
+                                    pingpong.customData.spikeStartTime = Date.now();
+                                    pingpong.customData.piercedIds = new Set();
+                                    pingpong.isSensor = true; // 적들을 뚫고 지나가는 관통 속성 부여!
+                                    pingpong.render.fillStyle = '#f97316';
+                                    pingpong.render.strokeStyle = '#fef08a';
+                                    
+                                    showFloatingText("💥 스파이크!!", pingpong.position, '#f97316', '24px');
+                                    playSound('hit');
+                                    
+                                    const enemies = getAlivePlayers().filter(p => p !== hw);
+                                    if (enemies.length > 0) {
+                                        let furthest = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, hw.ball.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, hw.ball.position)))[0];
+                                        pingpong.customData.spikeTarget = furthest;
+                                        let dir = Vector.normalise(Vector.sub(furthest.ball.position, pingpong.position));
+                                        Body.setVelocity(pingpong, Vector.mult(dir, 26));
+                                    } else {
+                                        Composite.remove(engine.world, pingpong);
+                                        hw.pingpongBall = null;
+                                    }
+                                    updateUI();
+                                } else {
+                                    // 현우 턴 + 스킬 미차징 상태일 때 들이받으면 그대로 서브(랠리) 연계!
+                                    showFloatingText("🏓 서브 랠리!", pingpong.position, '#ffffff', '14px');
+                                    playSound('bounce');
+                                    let sp = Vector.magnitude(pingpong.velocity);
+                                    let nv = Vector.normalise(pingpong.velocity);
+                                    if (nv.x === 0 && nv.y === 0) nv = Vector.normalise(Vector.sub(pingpong.position, hw.ball.position));
+                                    Body.setVelocity(pingpong, Vector.mult(nv, Math.max(sp, 18)));
+                                }
+                            } else {
+                                if (pingpong.customData.isSpike) {
+                                    let target = pingpong.customData.spikeTarget;
+                                    // 타겟이 이미 죽었다면 남은 적 중 가장 먼 적 재탐색
+                                    if (!target || target.isDead) {
+                                        const rem = getAlivePlayers().filter(p => p !== hw);
+                                        target = rem.length > 0 ? rem.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, pingpong.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, pingpong.position)))[0] : dp;
+                                        pingpong.customData.spikeTarget = target;
+                                    }
+
+                                    if (dp === target) {
+                                        // 최종 타겟(가장 먼 적) 적중 시 30 데미지 후 깨지며 소멸!
+                                        dealDamage(dp, 30, hw);
+                                        showFloatingText("💥 스파이크 적중!", dp.ball.position, '#f97316', '22px');
+                                        playSound('hit');
+                                        createShockwave(pingpong.position.x, pingpong.position.y, 110, 'rgba(249,115,22,0.85)');
+                                        Composite.remove(engine.world, pingpong);
+                                        hw.pingpongBall = null;
+                                        checkWin();
+                                    } else {
+                                        // 경로상의 다른 적을 관통할 때 5 데미지!
+                                        if (!pingpong.customData.piercedIds.has(dp.id)) {
+                                            pingpong.customData.piercedIds.add(dp.id);
+                                            dealDamage(dp, 5, hw);
+                                            showFloatingText("⚡ 관통!", dp.ball.position, '#fbbf24', '16px');
+                                            playSound('bounce');
+                                            checkWin();
+                                        }
+                                    }
+                                } else {
+                                    // 일반 탁구공 충돌 시 (현우 턴일 때만 1~2 피해)
+                                    if (players[currentPlayerIndex] === hw) {
+                                        dealDamage(dp, Math.floor(Math.random()*2)+1, hw);
+                                        playSound('hit');
+                                        let nv = Vector.normalise(Vector.sub(pingpong.position, dp.ball.position));
+                                        Body.setVelocity(pingpong, Vector.mult(nv, 12));
+                                        checkWin();
+                                    }
                                 }
                             }
                         }
@@ -1157,7 +1319,7 @@
                         }
                         if (activePhysicalPlayer.charKey==='NAMGYU' && !miss) { vic.hitsFromNamgyu++; if(vic.hitsFromNamgyu===5) applyDiabetes(vic); }
                         
-                        // 멍 추가피해
+                        // 멍 추가피해 적용
                         if (vic.bruiseTimer && Date.now() - vic.bruiseTimer < 10000) { dmg *= 2; showFloatingText("멍 2배피해!", vic.ball.position, '#a855f7'); }
                         
                         if (!miss && dmg>0) dealDamage(vic, dmg, activePhysicalPlayer); updateUI(); checkWin();
@@ -1169,13 +1331,38 @@
                 const now = Date.now();
                 if (gameState !== 'MOVING') return;
 
-                // 용(Dragon) 투사체 유도 로직 보호
+                // 용(Dragon) 투사체 및 현우 스파이크 유도 로직
                 Composite.allBodies(engine.world).forEach(b => {
                     if (b.label === 'dongwoo_proj_dragon' && b.customData && b.customData.target) {
                         let t = b.customData.target;
                         if (!t.isDead) {
                             let dir = Vector.normalise(Vector.sub(t.ball.position, b.position));
                             Body.setVelocity(b, Vector.mult(dir, 14)); 
+                        }
+                    }
+                    if (b.label === 'hyunwoo_pingpong' && b.customData && b.customData.isSpike) {
+                        let t = b.customData.spikeTarget;
+                        let hw = b.customData.source;
+                        // 스파이크 발사 후 4초 이상 지나도 못 맞췄으면 무한 루프 방지를 위해 강제 소멸
+                        if (b.customData.spikeStartTime && now - b.customData.spikeStartTime > 4000) {
+                            Composite.remove(engine.world, b);
+                            if (hw) hw.pingpongBall = null;
+                            return;
+                        }
+                        if (!t || t.isDead) {
+                            const enemies = getAlivePlayers().filter(p => p !== hw);
+                            if (enemies.length > 0) {
+                                t = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, b.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, b.position)))[0];
+                                b.customData.spikeTarget = t;
+                            } else {
+                                Composite.remove(engine.world, b);
+                                if (hw) hw.pingpongBall = null;
+                                return;
+                            }
+                        }
+                        if (t && !t.isDead) {
+                            let dir = Vector.normalise(Vector.sub(t.ball.position, b.position));
+                            Body.setVelocity(b, Vector.mult(dir, 26));
                         }
                     }
                 });
@@ -1201,9 +1388,34 @@
             Events.on(engine, 'afterUpdate', () => {
                 if (eatenPlayer) { Body.setPosition(eatenPlayer.ball, {x:-9999,y:-9999}); Body.setVelocity(eatenPlayer.ball, {x:0,y:0}); }
                 getAlivePlayers().forEach(p => { const sp = Vector.magnitude(p.ball.velocity); if (sp>65) Body.setVelocity(p.ball, Vector.mult(Vector.normalise(p.ball.velocity), 65)); });
+                
+                let waitPingpong = false;
+                const activeP = players[currentPlayerIndex];
+                const physicalTurnPlayer = activeP ? (activeP.dominating ? activeP.dominating : activeP) : null;
+
+                Composite.allBodies(engine.world).forEach(b => {
+                    if (b.label === 'hyunwoo_pingpong') {
+                        const hw = b.customData ? b.customData.source : null;
+                        const isSpike = b.customData && b.customData.isSpike;
+                        const isHwTurn = hw && !hw.isDead && physicalTurnPlayer === hw;
+
+                        // 탁구공은 항상 자유롭게 물리적으로 튕기도록 유지
+                        const sp = Vector.magnitude(b.velocity); 
+                        if (sp > 45) Body.setVelocity(b, Vector.mult(Vector.normalise(b.velocity), 45));
+                        if (sp > 0 && sp < 0.25) Body.setVelocity(b, {x:0, y:0});
+
+                        // 단, 턴 종료 대기 기준은 오직 '현우 턴'이거나 '스파이크 발사 중'일 때만 적용!
+                        if ((isHwTurn || isSpike) && (sp >= 0.25 || isSpike)) {
+                            waitPingpong = true;
+                        }
+                    }
+                });
+
                 if (gameState === 'MOVING') {
                     const allStopped = getAlivePlayers().every(p => (p.werewolf&&Date.now()-p.werewolfTimer<20000)?false:Vector.magnitude(p.ball.velocity)<0.6);
-                    if (allStopped) forceTurnEnd();
+                    if (allStopped && !waitPingpong) {
+                        forceTurnEnd();
+                    }
                 }
             });
         }
@@ -1227,6 +1439,12 @@
                     Body.setDensity(p.ball, 0.002); // 폭주 종료 시 원래 무게로 복구
                 }
                 p.ball.frictionAir=0.01; p.ball.restitution=0.9; p.werewolf=false; p.werewolfTimer=0; p.isGiukKnocked = false; 
+            });
+            // 턴 종료 시 필드 위 탁구공도 제자리에 멈춤
+            Composite.allBodies(engine.world).forEach(b => {
+                if (b.label === 'hyunwoo_pingpong') {
+                    Body.setVelocity(b, { x: 0, y: 0 });
+                }
             });
             if (checkWin()) return;
             
