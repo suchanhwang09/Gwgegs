@@ -60,10 +60,26 @@
                 우송중 배틀
             </h1>
         </div>
-        <div class="flex flex-col gap-4 w-full max-w-[300px] px-4">
+        <div class="flex flex-col gap-4 w-full max-w-[300px] px-4 relative">
             <button onclick="showScreen('screen-modes')" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black text-xl rounded-2xl shadow-[0_0_20px_rgba(79,70,229,0.4)] active:scale-95 transition">게임 시작</button>
             <button onclick="renderDictionary(); showScreen('screen-dict')" class="w-full py-3 bg-slate-800 border border-slate-600 text-slate-300 font-black text-lg rounded-2xl active:scale-95 transition hover:bg-slate-700">📖 캐릭터 도감</button>
             <button onclick="showScreen('screen-notice')" class="w-full py-3 bg-slate-800 border border-slate-600 text-slate-300 font-black text-lg rounded-2xl active:scale-95 transition hover:bg-slate-700">📢 공지 및 업데이트 내역</button>
+        </div>
+        <button id="main-cheat-btn" onclick="openCheatAuthModal()" class="absolute bottom-4 right-4 px-3 py-1.5 bg-slate-900/80 border border-amber-500/40 text-amber-400 font-black text-xs rounded-lg active:scale-95 transition hover:bg-slate-800">🛠️ 치트 OFF</button>
+    </div>
+
+    <!-- 치트 인증 모달 -->
+    <div id="cheat-auth-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-amber-500/50 rounded-2xl p-6 w-full max-w-[300px] text-center shadow-2xl">
+            <div class="text-3xl mb-2">🔐</div>
+            <h3 class="text-xl font-black text-white mb-1">개발자 치트 모드</h3>
+            <p class="text-xs text-slate-400 font-bold mb-4">활성화 코드를 입력하세요</p>
+            <input id="cheat-code-input" type="text" placeholder="코드 입력..." class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-center text-white font-bold mb-2 focus:outline-none focus:border-amber-400" onkeydown="if(event.key==='Enter') verifyCheatCode()">
+            <p id="cheat-auth-msg" class="text-xs font-bold h-4 mb-3 text-rose-400"></p>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="closeCheatAuthModal()" class="py-2.5 bg-slate-800 text-slate-300 font-black text-sm rounded-xl">취소</button>
+                <button onclick="verifyCheatCode()" class="py-2.5 bg-amber-500 text-slate-950 font-black text-sm rounded-xl">확인</button>
+            </div>
         </div>
     </div>
 
@@ -99,28 +115,30 @@
     <div id="screen-notice" class="screen bg-[#0b0f19] justify-start pt-10 px-4 pb-6">
         <div class="w-full max-w-[450px] flex flex-col flex-1 h-full min-h-0 overflow-hidden">
             <div class="flex justify-between items-center mb-6 shrink-0">
-                <h2 class="text-3xl font-black text-white">📢 업데이트 내역</h2>
+                <h2 class="text-2xl font-black text-white">📢 공지 및 업데이트 내역</h2>
                 <button onclick="showScreen('screen-main')" class="text-slate-400 font-bold bg-slate-800 px-3 py-1.5 rounded-lg text-sm shrink-0">닫기 ✖</button>
             </div>
             <div class="flex flex-col gap-4 overflow-y-auto overflow-x-hidden flex-1 min-h-0 pb-10 text-slate-300 w-full pr-1">
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 w-full shrink-0">
-                    <h3 class="text-xl font-black text-sky-400 mb-3">🎉 신규 패치 완료! (통합본)</h3>
+                    <h3 class="text-xl font-black text-sky-400 mb-3">🎉 신규 패치 노트</h3>
                     <ul class="list-disc pl-5 space-y-2 text-sm font-bold leading-relaxed break-all whitespace-normal">
-                        <li><span class="text-amber-400">신규 참전 [현우] (기욱이 무리):</span> 탁구공의 달인 참전! 벽 4회 충돌 시 탁구공을 서브(발사)하며, 현우 턴에 적과 닿으면 1~2 피해를 입힙니다. 필드에 공이 있을 때 다시 벽 4회를 채우고 직접 탁구공을 들이받으면 관통(5뎀) 유도 스파이크(30뎀)를 발사합니다!</li>
-                        <li><span class="text-rose-400">늑대인간 폭주 무게감 상향 (동호):</span> 동호가 늑대인간으로 폭주하는 동안 압도적인 힘과 무게감(밀도)을 얻어, 가장 무거운 기욱이조차 들이받으면 시원하게 튕겨 나갑니다!</li>
-                        <li><span class="text-emerald-400">물리 밸런스 패치 (기욱 & 현민):</span> 기욱이는 묵직한 체중에 맞게 이동 속도가 소폭 감소한 대신 적을 훨씬 강하게 밀쳐내며, 폭주 시 적을 날려버리는 힘이 대폭 상향되었습니다! 반면 현민이는 가벼운 체중 덕분에 더욱 빠르게 날아가고 적을 약하게 밀쳐냅니다.</li>
-                        <li><span class="text-yellow-400">동우 완벽 적용 완료:</span> 5번 튕기면 완벽하게 동그란 뱀(🐍)➔이무기(🌊🐉)➔용(👑🐉)을 발사하며, 유도/관통/스택 효과가 모두 정상 발동합니다!</li>
-                        <li><span class="text-orange-400">윤성 완벽 적용 완료:</span> 벽 3회 튕김 및 3회 타격 달성 시 발차기(골절 디버프 3종) 또는 지르기(치명타/멍) 스킬이 화려하게 발동합니다! 치명타 걸린 적은 다음턴 70피해 확정!</li>
+                        <li><span class="text-amber-400">신규 참전 [시호]:</span> 시간 가속(킹크림슨)의 능력자! 5타격/5피격/5튕김 달성 시 10초간 초고속으로 움직이며 턴을 넘깁니다. 상대가 공격을 시도할 때 1.5초간 시간 감속(0.15배속)을 걸어 회피합니다!</li>
+                        <li><span class="text-purple-400">신규 상태이상 [시간삭제]:</span> 시호의 시간가속 중 공격(2뎀)에 맞으면 5% 확률로 부여. 매 턴마다 1의 피해를 입으며, 스킬 종료 시 시호 앞으로 강제 소환되어 30의 강력한 추가 피해를 입습니다!</li>
+                        <li><span class="text-sky-400">탁구공 수정 (현우):</span> 턴 종료 시 혹은 스킬 발동 시 탁구공이 부자연스럽게 멈추거나 튕기는 현상을 수정했습니다.</li>
+                        <li><span class="text-emerald-400">스킬/상태이상 정정 (윤성):</span> 윤성의 스킬 데미지와 상태이상 효과(골절, 멍, 치명타)가 설계된 수치 그대로 완벽하게 작동하도록 정정되었습니다!</li>
+                        <li><span class="text-rose-400">테스트 치트 모드:</span> 메인 화면 우측 하단에서 [치트 OFF]를 눌러 코드(기욱) 입력 시 활성화. 게임 내에서 대상의 체력 조작, 모든 상태이상 부여, 확률 100% 고정 등이 가능합니다!</li>
                     </ul>
                 </div>
 
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 w-full shrink-0">
-                    <h3 class="text-lg font-black text-slate-400 mb-3">📜 이전 패치 노트</h3>
-                    <ul class="list-disc pl-5 space-y-2 text-xs font-bold leading-relaxed break-all whitespace-normal text-slate-400">
-                        <li><span class="text-slate-300">신규 참전 [준원]:</span> 폭풍을 부르는 자 참전! 벽 2번 튕김 및 피격 7회 달성 시 가장 가까운 적에게 도약해 좁은 범위 30 광역 피해 및 기절을 부여하고 체력 20을 회복합니다!</li>
-                        <li><span class="text-slate-300">신규 참전 [기욱]:</span> 체력 120의 무거운 떡대 등장! 적을 날려버리고 다음 적을 깔아뭉갭니다. (5% 즉사 효과!)</li>
-                        <li><span class="text-slate-300">동호 소속 변경:</span> 동호 캐릭터의 카테고리가 '일반 학생'에서 '늑대 무리'로 변경되었습니다!</li>
-                        <li><span class="text-slate-300">밸런스 패치:</span> 용우 물바다 상향(20%➔30%), 태성이 스킬 떡상(심장 파괴자 추가), 현민이 반격 하향(40➔30)</li>
+                    <h3 class="text-xl font-black text-slate-400 mb-3">📜 이전 패치 노트</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm font-bold leading-relaxed break-all whitespace-normal text-slate-400">
+                        <li><span class="text-white">신규 참전 [준원]:</span> 폭풍을 부르는 자 참전! 벽 2번 튕김 및 피격 7회 달성 시 가장 가까운 적에게 도약해 좁은 범위 30 광역 피해 및 기절(다음 공격턴 1회 휴식)을 부여하고 체력 20을 회복합니다!</li>
+                        <li><span class="text-white">동호 소속 변경:</span> 동호 캐릭터의 카테고리가 '일반 학생'에서 '늑대 무리'로 변경되었습니다!</li>
+                        <li><span class="text-white">신규 참전 [기욱]:</span> 체력 120의 무거운 떡대 등장! 타격 4회 및 피격 6회 달성 시 폭주하여 가장 가까운 적을 날려버리고 다음 적을 깔아뭉갭니다. (5% 즉사 효과, 으깨짐 부여!)</li>
+                        <li><span class="text-white">용우 물바다 상향:</span> 샤워기 함정에 걸렸을 때 물바다 발동 확률이 기존 20%에서 30%로 증가했습니다!</li>
+                        <li><span class="text-white">태성이 스킬 떡상:</span> [군주의 지배] 해제 시 체력 15 회복! 또한 1:1 상황에서는 '심장 파괴자'가 발동해 적 배후로 순간이동하여 날려버립니다.</li>
+                        <li><span class="text-white">현민이 밸런스 패치:</span> 광역 반격 데미지가 너무 강해 40에서 30으로 하향 조정되었습니다.</li>
                     </ul>
                 </div>
 
@@ -158,7 +176,10 @@
     <div id="screen-game" class="screen bg-[#040812] justify-start pt-4 pb-2">
         <div class="w-full max-w-[500px] flex justify-between items-center px-2 mb-1 shrink-0 z-10">
             <div class="text-sky-500 font-black text-xs">⚔️ 우송중 배틀</div>
-            <button onclick="goMainFromGame()" class="px-3 py-1 bg-slate-800 text-slate-300 text-[10px] font-bold rounded-md border border-slate-700 active:scale-95 transition hover:bg-slate-700">다시하기 ↺</button>
+            <div class="flex items-center gap-1.5">
+                <button id="ingame-cheat-toggle-btn" onclick="toggleCheatPanel()" class="hidden px-2.5 py-1 bg-amber-500 text-slate-950 text-[10px] font-black rounded-md shadow active:scale-95 transition">🛠️ 치트패널</button>
+                <button onclick="goMainFromGame()" class="px-3 py-1 bg-slate-800 text-slate-300 text-[10px] font-bold rounded-md border border-slate-700 active:scale-95 transition hover:bg-slate-700">다시하기 ↺</button>
+            </div>
         </div>
         <div id="ui-header" class="w-full max-w-[500px] flex flex-wrap justify-center gap-1 shrink-0 z-10 px-1 py-1 bg-slate-900/40 border-b border-slate-800/50"></div>
         <div id="board-wrapper" class="flex-1 w-full flex items-center justify-center min-h-0 overflow-hidden pb-1 px-1 relative mt-1">
@@ -169,6 +190,47 @@
                 <div id="game-container" class="w-full h-full relative"></div>
                 <div id="fx-layer" class="absolute inset-0 pointer-events-none z-10 overflow-hidden rounded-[16px]"></div>
                 
+                <!-- 인게임 치트 테스트 패널 -->
+                <div id="cheat-panel" class="absolute inset-x-2 top-2 bg-slate-950/95 border border-amber-500/60 rounded-2xl p-3 hidden z-30 shadow-2xl text-left max-h-[85%] overflow-y-auto">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
+                        <span class="text-amber-400 font-black text-sm">🛠️ 테스트 치트 콘솔</span>
+                        <div class="flex gap-2">
+                            <button onclick="turnOffCheat()" class="text-xs bg-rose-600 text-white px-2 py-1 rounded font-bold">치트 끄기</button>
+                            <button onclick="toggleCheatPanel()" class="text-xs bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold">닫기 ✖</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5 mb-2">
+                        <button id="cheat-prob-btn" onclick="toggleCheatProb()" class="py-2 px-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-[11px] font-black">🎲 확률 UP: OFF</button>
+                        <button onclick="cheatChargeAll()" class="py-2 px-2 bg-sky-600/30 border border-sky-500/50 text-sky-300 rounded-lg text-[11px] font-black">⚡ 전원 스킬 풀충전</button>
+                    </div>
+                    <div class="bg-slate-900 p-2 rounded-xl border border-slate-800 mb-2">
+                        <div class="text-[10px] text-slate-400 font-bold mb-1">🎯 테스트 대상 선택</div>
+                        <select id="cheat-target-select" class="w-full bg-slate-950 border border-slate-700 text-white text-xs font-bold rounded-lg p-1.5 mb-2"></select>
+                        <div class="grid grid-cols-3 gap-1 mb-2">
+                            <button onclick="cheatAction('charge')" class="py-1.5 bg-indigo-600/40 text-indigo-200 rounded text-[10px] font-black">스킬 충전</button>
+                            <button onclick="cheatAction('turn')" class="py-1.5 bg-amber-600/40 text-amber-200 rounded text-[10px] font-black">즉시 턴 이동</button>
+                            <button onclick="cheatAction('heal')" class="py-1.5 bg-emerald-600/40 text-emerald-200 rounded text-[10px] font-black">HP 100% 회복</button>
+                            <button onclick="cheatAction('dmg10')" class="py-1.5 bg-rose-600/30 text-rose-300 rounded text-[10px] font-black">-10 피해</button>
+                            <button onclick="cheatAction('kill')" class="py-1.5 bg-rose-700 text-white rounded text-[10px] font-black">즉사(999)</button>
+                            <button onclick="cheatAction('clearStatus')" class="py-1.5 bg-slate-700 text-slate-200 rounded text-[10px] font-black">상태이상 해제</button>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-bold mb-1">🧪 상태이상 즉시 부여</div>
+                        <div class="grid grid-cols-3 gap-1">
+                            <button onclick="cheatStatus('leg')" class="py-1 bg-slate-800 hover:bg-slate-700 text-rose-300 rounded text-[10px] font-bold">🦵 다리골절</button>
+                            <button onclick="cheatStatus('arm')" class="py-1 bg-slate-800 hover:bg-slate-700 text-rose-300 rounded text-[10px] font-bold">💪 팔골절</button>
+                            <button onclick="cheatStatus('finger')" class="py-1 bg-slate-800 hover:bg-slate-700 text-rose-300 rounded text-[10px] font-bold">🖐️ 손가락골절</button>
+                            <button onclick="cheatStatus('bruise')" class="py-1 bg-slate-800 hover:bg-slate-700 text-purple-300 rounded text-[10px] font-bold">🟣 멍</button>
+                            <button onclick="cheatStatus('crit')" class="py-1 bg-slate-800 hover:bg-slate-700 text-red-400 rounded text-[10px] font-bold">💥 치명타</button>
+                            <button onclick="cheatStatus('stun')" class="py-1 bg-slate-800 hover:bg-slate-700 text-yellow-300 rounded text-[10px] font-bold">💫 기절</button>
+                            <button onclick="cheatStatus('wet')" class="py-1 bg-slate-800 hover:bg-slate-700 text-sky-300 rounded text-[10px] font-bold">💧 젖음</button>
+                            <button onclick="cheatStatus('crush')" class="py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] font-bold">💢 으깨짐</button>
+                            <button onclick="cheatStatus('bleed')" class="py-1 bg-slate-800 hover:bg-slate-700 text-rose-400 rounded text-[10px] font-bold">🩸 출혈</button>
+                            <button onclick="cheatStatus('diabetes')" class="py-1 bg-slate-800 hover:bg-slate-700 text-fuchsia-300 rounded text-[10px] font-bold">🍬 당뇨</button>
+                            <button onclick="cheatStatus('timeErase')" class="col-span-2 py-1 bg-slate-800 hover:bg-slate-700 text-purple-400 rounded text-[10px] font-bold">⏳ 시간삭제 (시호)</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 찬휘 룰렛 모달 -->
                 <div id="roulette-modal" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-sm rounded-[16px] hidden z-30 p-5 shadow-2xl">
                     <div class="text-amber-500 text-4xl mb-2">🎰</div>
@@ -212,25 +274,29 @@
         }
         function goMainFromGame() { 
             stopDonghoBgm(); 
-            if (engine) { Runner.stop(runner); Render.stop(render); engine.events = {}; render.canvas.remove(); engine = null; } 
+            if (engine) { 
+                engine.timing.timeScale = 1.0; // 타임스케일 복구
+                Runner.stop(runner); Render.stop(render); engine.events = {}; render.canvas.remove(); engine = null; 
+            } 
             showScreen('screen-main'); 
         }
 
-        // 전체 12명 캐릭터 데이터 (윤성, 동우 완벽 복구본)
+        // --- 데이터 정의 (지시사항 기반 카테고리/캐릭터) ---
         const CHARACTERS = {
             'ME': { name: '수찬', icon: '😋', category: '도현이 무리', skillDesc: '벽 3번 튕기면 다음 턴에 상대를 삼켜 위치 이동', maxHp: 100, maxBounces: 3 },
             'DOHYEON': { name: '도현', icon: '🧴', category: '도현이 무리', skillDesc: '벽 4번 튕기면 모든 적에게 30의 확정 물병샷 피해', maxHp: 100, maxBounces: 4 },
             'HYUNMIN': { name: '현민', icon: '🛡️', category: '도현이 무리', skillDesc: '벽 7번 튕기면 1회 무효화 반격 준비(30피해). HP 5 이하 시 최후의 발악', maxHp: 85, maxBounces: 7 },
             'CHANHWI': { name: '찬휘', icon: '🎰', category: '도현이 무리', skillDesc: '도박사! 발동 조건 1~10 랜덤. 조건 충족 시 러시안 룰렛 진행 (50% 확률 실탄 투시)', maxHp: 100, maxBounces: 5 },
             'TAESEONG': { name: '태성', icon: '👻', category: '도현이 무리', skillDesc: '타격 4회(1:1은 3회) 시 차징. 다인전: 적 지배/조종. 1:1: 심장파괴자(배후이동 20+벽충돌 10)', maxHp: 100, maxBounces: 0, maxHits: 4 },
+            'SHIHO': { name: '시호', icon: '⏱️', category: '도현이 무리', skillDesc: '시간 가속(킹크림슨): 5타/5피/5벽 달성 시 20초간 초고속 이동 및 절대 감속(0.15배속). 타격 시 5% [시간삭제] 부여. 스킬 종료 시 시간삭제 대상 순간이동 후 30피해.', maxHp: 100, maxBounces: 5, maxHits: 5, maxDamaged: 5 },
             'YONGWOO': { name: '용우', icon: '🚿', category: '일진', skillDesc: '벽 6번 튕기면 샤워기 함정 생성. 적이 밟으면 물바다 및 미끄러짐 부여', maxHp: 100, maxBounces: 6 },
             'NAMGYU': { name: '남규', icon: '🍪', category: '일반 학생', skillDesc: '벽 2번 튕길 때마다 두쫀쿠 투사체 발사. 5번 맞으면 당뇨(지속 피해)', maxHp: 100, maxBounces: 2 },
-            'DONGHO': { name: '동호', icon: '🐺', category: '늑대 무리', skillDesc: '벽 5번, 타격 3번 시 20초간 늑대인간 폭주 (초고속, 제동 불가)', maxHp: 100, maxBounces: 5, maxHits: 3 },
             'JUNWON': { name: '준원', icon: '⚡', category: '일반 학생', skillDesc: '벽 2번 튕기고 피격 7회 시 폭풍의 도약! 대상에게 돌진해 광역 30피해 및 기절(1턴 휴식) 부여, 자신 20회복', maxHp: 100, maxBounces: 2, maxDamaged: 7 },
-            'YOONSUNG': { name: '윤성', icon: '🥋', category: '일반 학생', skillDesc: '벽 3번 튕기고 타격 3회 달성 시 발차기(골절) 또는 지르기(멍/치명타). 치명타는 다음 턴 적에게 70 확정 피해', maxHp: 100, maxBounces: 3, maxHits: 3 },
+            'YOONSUNG': { name: '윤성', icon: '🥋', category: '일반 학생', skillDesc: '벽 3번, 타격 3회 달성 시 발차기(40뎀+골절) 또는 지르기(35뎀+멍/치명타). 치명타는 다음 턴 적에게 70 확정 피해', maxHp: 100, maxBounces: 3, maxHits: 3 },
+            'DONGHO': { name: '동호', icon: '🐺', category: '늑대 무리', skillDesc: '벽 5번, 타격 3번 시 20초간 늑대인간 폭주 (초고속, 제동 불가)', maxHp: 100, maxBounces: 5, maxHits: 3 },
             'GIUK': { name: '기욱', icon: '🪨', category: '기욱이 무리', skillDesc: '무거운 떡대. 타격 4회 및 피격 6회 시 폭주. 적을 날리고 다음 적을 깔아뭉개 20피해(5% 즉사) 및 으깨짐 부여.', maxHp: 120, maxBounces: 0, maxHits: 4, maxDamaged: 6 },
             'DONGWOO': { name: '동우', icon: '🐉', category: '기욱이 무리', skillDesc: '벽 5회 충돌 시 뱀(🐍)➔이무기(🌊🐉)➔용(👑🐉) 둥근 투사체 발사! 스택 누적 데미지와 5스택 시 즉사 발동.', maxHp: 100, maxBounces: 5 },
-            'HYUNWOO': { name: '현우', icon: '🏓', category: '기욱이 무리', skillDesc: '벽 4번 튕기면 탁구공 서브(발사). 현우 턴에 적과 닿으면 1~2 피해. 스킬 차징 후 필드의 탁구공에 직접 부딪히면 가장 먼 적을 추적하는 관통(5뎀) 유도 스파이크(30뎀) 발사!', maxHp: 100, maxBounces: 4 }
+            'HYUNWOO': { name: '현우', icon: '🏓', category: '기욱이 무리', skillDesc: '벽 4번 튕기면 탁구공 서브. 현우 턴에 탁구공에 부딪히면 1~2 피해. 스킬 차징 후 필드의 탁구공에 직접 부딪히면 가장 먼 적을 추적하는 관통(5뎀) 유도 스파이크(30뎀) 발사!', maxHp: 100, maxBounces: 4 }
         };
 
         const CATEGORIES = ['일진', '일반 학생', '도현이 무리', '늑대 무리', '기욱이 무리'];
@@ -246,23 +312,127 @@
         Object.keys(CHARACTERS).forEach((k) => { pickupState[k] = { selected: true, isAI: true }; });
         pickupState['ME'].isAI = false;
 
+        // 치트 전역변수
+        let cheatEnabled = false;
+        let cheatProbUp = false;
+
+        function openCheatAuthModal() {
+            if (cheatEnabled) {
+                turnOffCheat();
+                return;
+            }
+            const modal = document.getElementById('cheat-auth-modal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            document.getElementById('cheat-auth-msg').textContent = '';
+            const inp = document.getElementById('cheat-code-input');
+            inp.value = ''; setTimeout(() => inp.focus(), 50);
+        }
+        function closeCheatAuthModal() {
+            const modal = document.getElementById('cheat-auth-modal');
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+        }
+        function verifyCheatCode() {
+            const val = document.getElementById('cheat-code-input').value.trim();
+            if (val === '기욱') {
+                cheatEnabled = true; closeCheatAuthModal();
+                const btn = document.getElementById('main-cheat-btn');
+                btn.textContent = '🛠️ 치트 ON';
+                btn.classList.replace('text-amber-400', 'text-emerald-400');
+                btn.classList.replace('border-amber-500/40', 'border-emerald-500/60');
+                const igBtn = document.getElementById('ingame-cheat-toggle-btn');
+                if(igBtn) igBtn.classList.remove('hidden');
+            } else { document.getElementById('cheat-auth-msg').textContent = '❌ 코드가 일치하지 않습니다.'; }
+        }
+        function turnOffCheat() {
+            cheatEnabled = false; cheatProbUp = false;
+            document.getElementById('cheat-panel').classList.add('hidden');
+            const igBtn = document.getElementById('ingame-cheat-toggle-btn');
+            if(igBtn) igBtn.classList.add('hidden');
+            const btn = document.getElementById('main-cheat-btn');
+            btn.textContent = '🛠️ 치트 OFF';
+            btn.classList.replace('text-emerald-400', 'text-amber-400');
+            btn.classList.replace('border-emerald-500/60', 'border-amber-500/40');
+            const probBtn = document.getElementById('cheat-prob-btn');
+            probBtn.textContent = '🎲 확률 UP: OFF';
+            probBtn.className = 'py-2 px-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-[11px] font-black';
+        }
+        function toggleCheatPanel() {
+            if (!cheatEnabled) return;
+            const panel = document.getElementById('cheat-panel');
+            if (panel.classList.contains('hidden')) { refreshCheatTargetList(); panel.classList.remove('hidden'); } 
+            else { panel.classList.add('hidden'); }
+        }
+        function refreshCheatTargetList() {
+            const sel = document.getElementById('cheat-target-select'); const prev = sel.value; sel.innerHTML = '';
+            players.forEach(p => {
+                const opt = document.createElement('option'); opt.value = p.id;
+                opt.textContent = `[${p.theme.name}] ${CHARACTERS[p.charKey].name} (HP: ${p.hp}${p.isDead ? ' - 사망' : ''})`;
+                sel.appendChild(opt);
+            });
+            if (prev && players[prev]) sel.value = prev;
+        }
+        function toggleCheatProb() {
+            cheatProbUp = !cheatProbUp; const btn = document.getElementById('cheat-prob-btn');
+            if (cheatProbUp) { btn.textContent = '🎲 확률 UP: 100% ON'; btn.className = 'py-2 px-2 bg-amber-500 text-slate-950 rounded-lg text-[11px] font-black shadow'; } 
+            else { btn.textContent = '🎲 확률 UP: OFF'; btn.className = 'py-2 px-2 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-[11px] font-black'; }
+        }
+        function fillPlayerSkill(p) {
+            if (!p || p.isDead) return;
+            const fMod = p.fingerFracture ? 1 : 0;
+            if (p.charKey === 'CHANHWI') { p.skillCharge = p.targetBounces + fMod; updateUI(); startRussianRoulette(p); return; }
+            const maxB = CHARACTERS[p.charKey].maxBounces > 0 ? Math.max(1, CHARACTERS[p.charKey].maxBounces - (p.dominatedBy ? 1 : 0) + fMod) : 0;
+            const maxH = CHARACTERS[p.charKey].maxHits ? (((p.charKey === 'TAESEONG' && getAlivePlayers().length === 2) ? 3 : CHARACTERS[p.charKey].maxHits) + fMod) : 0;
+            const maxD = CHARACTERS[p.charKey].maxDamaged ? (CHARACTERS[p.charKey].maxDamaged + fMod) : 0;
+            if (maxB > 0) p.skillCharge = maxB; if (maxH > 0) p.hitCharge = maxH; if (maxD > 0) p.damageTakenCount = maxD;
+            if (p.charKey === 'GIUK') checkGiukSkill(p); if (p.charKey === 'JUNWON') checkJunwonSkill(p);
+            showFloatingText("⚡ 풀충전!", p.ball.position, '#38bdf8', '14px');
+        }
+        function cheatChargeAll() { getAlivePlayers().forEach(p => { if (p.charKey !== 'CHANHWI') fillPlayerSkill(p); }); updateUI(); }
+        function cheatAction(act) {
+            const idx = parseInt(document.getElementById('cheat-target-select').value, 10); const p = players[idx]; if (!p) return;
+            if (act === 'charge') { fillPlayerSkill(p); }
+            else if (act === 'turn') {
+                if (p.isDead) return; clearTimeout(turnTimeout); clearTimeout(aiActionTimeout);
+                getAlivePlayers().forEach(pl => Body.setVelocity(pl.ball, { x: 0, y: 0 }));
+                currentPlayerIndex = p.id; gameState = 'AIMING'; toggleCheatPanel(); updateUI(); scheduleAITurnIfNeeded(); return;
+            }
+            else if (act === 'heal') { if (p.isDead) return; p.hp = p.maxHp; showFloatingText("HP FULL!", p.ball.position, '#22c55e', '16px'); }
+            else if (act === 'dmg10') { dealDamage(p, 10); checkWin(); }
+            else if (act === 'kill') { dealDamage(p, 999); checkWin(); }
+            else if (act === 'clearStatus') {
+                p.legFracture = false; p.legFractureRoundFlag = false; p.armFracture = false; p.armFractureRoundFlag = false;
+                p.fingerFracture = false; p.fingerFractureRoundFlag = false; p.isBruised = false; p.bruiseRoundFlag = false;
+                p.critDoom = false; p.isStunned = false; p.isWet = false; p.wetRoundFlag = false; p.isCrushed = false; p.crushRoundFlag = false; p.timeErase = false;
+                clearInterval(p.diabetesTimer); p.diabetesTimer = null; p.hitsFromNamgyu = 0; clearInterval(p.bleedTimer); p.bleedTimer = null; p.bleedTurnsLeft = 0;
+                showFloatingText("상태이상 초기화!", p.ball.position, '#38bdf8', '14px');
+            }
+            updateUI(); refreshCheatTargetList();
+        }
+        function cheatStatus(st) {
+            const idx = parseInt(document.getElementById('cheat-target-select').value, 10); const p = players[idx]; if (!p || p.isDead) return;
+            if (st === 'leg') { p.legFracture = true; p.legFractureRoundFlag = false; showFloatingText("🦵 다리 골절!", p.ball.position, '#ef4444'); }
+            else if (st === 'arm') { p.armFracture = true; p.armFractureRoundFlag = false; showFloatingText("💪 팔 골절!", p.ball.position, '#ef4444'); }
+            else if (st === 'finger') { p.fingerFracture = true; p.fingerFractureRoundFlag = false; showFloatingText("🖐️ 손가락 골절!", p.ball.position, '#ef4444'); }
+            else if (st === 'bruise') { p.isBruised = true; p.bruiseRoundFlag = false; showFloatingText("🟣 멍!", p.ball.position, '#a855f7'); }
+            else if (st === 'crit') { p.critDoom = true; showFloatingText("💥 치명타 표식!", p.ball.position, '#ef4444'); }
+            else if (st === 'stun') { p.isStunned = true; showFloatingText("💫 기절!", p.ball.position, '#facc15'); }
+            else if (st === 'wet') { p.isWet = true; p.wetRoundFlag = false; showFloatingText("💧 젖음!", p.ball.position, '#3b82f6'); }
+            else if (st === 'crush') { p.isCrushed = true; p.crushRoundFlag = false; showFloatingText("💢 으깨짐!", p.ball.position, '#94a3b8'); }
+            else if (st === 'bleed') { applyBleed(p); }
+            else if (st === 'diabetes') { applyDiabetes(p); }
+            else if (st === 'timeErase') { p.timeErase = true; showFloatingText("⏳ 시간삭제!", p.ball.position, '#a855f7'); }
+            updateUI();
+        }
+
         function renderDictionary() {
             const container = document.getElementById('dict-content');
             container.innerHTML = '';
             CATEGORIES.forEach(cat => {
                 const charsInCat = Object.entries(CHARACTERS).filter(([k, v]) => v.category === cat);
                 if (charsInCat.length === 0) return;
-                
                 let html = `<div class="mb-4"><div class="text-sky-400 font-black text-lg mb-3 border-b border-slate-700 pb-1">${cat}</div><div class="grid grid-cols-1 gap-3">`;
                 charsInCat.forEach(([k, v]) => {
-                    html += `
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex gap-4 items-center">
-                            <div class="text-4xl bg-slate-800 w-16 h-16 rounded-xl flex justify-center items-center shrink-0 border border-slate-700 shadow-inner">${v.icon}</div>
-                            <div>
-                                <div class="text-white font-black text-lg mb-1">${v.name} <span class="text-xs text-slate-500 font-bold ml-1">HP ${v.maxHp}</span></div>
-                                <div class="text-slate-400 text-xs leading-relaxed font-bold break-all whitespace-normal">${v.skillDesc}</div>
-                            </div>
-                        </div>`;
+                    html += `<div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex gap-4 items-center"><div class="text-4xl bg-slate-800 w-16 h-16 rounded-xl flex justify-center items-center shrink-0 border border-slate-700 shadow-inner">${v.icon}</div><div><div class="text-white font-black text-lg mb-1">${v.name} <span class="text-xs text-slate-500 font-bold ml-1">HP ${v.maxHp}</span></div><div class="text-slate-400 text-xs leading-relaxed font-bold break-all whitespace-normal">${v.skillDesc}</div></div></div>`;
                 });
                 html += `</div></div>`;
                 container.innerHTML += html;
@@ -270,40 +440,20 @@
         }
 
         function renderPickup() {
-            const grid = document.getElementById('pickup-grid');
-            grid.innerHTML = ''; let selectedCount = 0;
-
+            const grid = document.getElementById('pickup-grid'); grid.innerHTML = ''; let selectedCount = 0;
             Object.entries(CHARACTERS).forEach(([k, v]) => {
-                const state = pickupState[k];
-                if (state.selected) selectedCount++;
-                const cardClass = state.selected ? 'included' : 'excluded';
-                const aiBg = state.isAI ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-sky-500/20 text-sky-400 border border-sky-500/30';
-                
-                grid.innerHTML += `
-                    <div onclick="togglePickup('${k}')" class="char-card ${cardClass} relative bg-slate-900 p-3 rounded-xl cursor-pointer flex flex-col items-center text-center select-none overflow-hidden h-32 justify-center shadow-lg">
-                        <button onclick="toggleAI(event, '${k}')" class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-black z-10 ${aiBg} active:scale-95">${state.isAI?'🤖 봇':'👤 유저'}</button>
-                        <div class="text-4xl mb-1 mt-3 drop-shadow-md">${v.icon}</div>
-                        <div class="text-white font-black text-sm mb-1">${v.name}</div>
-                        <div class="text-[9px] text-slate-400 font-bold max-h-8 overflow-hidden">${v.category}</div>
-                        <div class="absolute -bottom-1 -right-1 bg-gradient-to-br from-sky-400 to-blue-600 text-white text-[10px] font-black px-2 py-1 rounded-tl-lg shadow-[-2px_-2px_5px_rgba(0,0,0,0.3)] ${state.selected?'block':'hidden'}">참전중</div>
-                    </div>`;
+                const state = pickupState[k]; if (state.selected) selectedCount++;
+                const cardClass = state.selected ? 'included' : 'excluded'; const aiBg = state.isAI ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-sky-500/20 text-sky-400 border border-sky-500/30';
+                grid.innerHTML += `<div onclick="togglePickup('${k}')" class="char-card ${cardClass} relative bg-slate-900 p-3 rounded-xl cursor-pointer flex flex-col items-center text-center select-none overflow-hidden h-32 justify-center shadow-lg"><button onclick="toggleAI(event, '${k}')" class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-black z-10 ${aiBg} active:scale-95">${state.isAI?'🤖 봇':'👤 유저'}</button><div class="text-4xl mb-1 mt-3 drop-shadow-md">${v.icon}</div><div class="text-white font-black text-sm mb-1">${v.name}</div><div class="text-[9px] text-slate-400 font-bold max-h-8 overflow-hidden">${v.category}</div><div class="absolute -bottom-1 -right-1 bg-gradient-to-br from-sky-400 to-blue-600 text-white text-[10px] font-black px-2 py-1 rounded-tl-lg shadow-[-2px_-2px_5px_rgba(0,0,0,0.3)] ${state.selected?'block':'hidden'}">참전중</div></div>`;
             });
-            
-            const btn = document.getElementById('start-battle-btn');
-            document.getElementById('header-pickup-count').textContent = `출전: ${selectedCount}명`;
-            if (selectedCount < 2) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최소 2명)`; } 
-            else if (selectedCount > 13) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최대 13명)`; } 
-            else { btn.disabled = false; btn.innerHTML = `전투 시작! (<span class="text-white">${selectedCount}</span>명 출전)`; }
+            const btn = document.getElementById('start-battle-btn'); document.getElementById('header-pickup-count').textContent = `출전: ${selectedCount}명`;
+            if (selectedCount < 2) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최소 2명)`; } else if (selectedCount > 14) { btn.disabled = true; btn.innerHTML = `전투 시작 불가 (최대 14명)`; } else { btn.disabled = false; btn.innerHTML = `전투 시작! (<span class="text-white">${selectedCount}</span>명 출전)`; }
         }
 
         function togglePickup(charKey) { pickupState[charKey].selected = !pickupState[charKey].selected; renderPickup(); }
         function toggleAI(event, charKey) { event.stopPropagation(); pickupState[charKey].isAI = !pickupState[charKey].isAI; renderPickup(); }
 
-        function startBattle() {
-            try { initAudio(); unlockDonghoBgm(); } catch (err) {}
-            showScreen('screen-game');
-            setTimeout(() => { initGame(); }, 100);
-        }
+        function startBattle() { try { initAudio(); unlockDonghoBgm(); } catch (err) {} showScreen('screen-game'); setTimeout(() => { initGame(); }, 100); }
 
         let donghoBgmTimeout = null;
         function unlockDonghoBgm() { const bgm = document.getElementById('dongho-bgm'); if (bgm) bgm.load(); }
@@ -333,6 +483,11 @@
         let dragStartPos = null; let dragCurrentPos = null; let lastWallBounceTime = 0; let turnTimeout = null; let aiActionTimeout = null;
         let eatenPlayer = null; let eaterPlayer = null; let showers = []; let floodInterval = null;
         let rouletteState = { active: false, owner: null, order: [], turnIdx: 0, chambers: [], currentSlot: 0, bulletCount: 0, canSee: false, rigUsed: false, busy: false };
+
+        let shihoSkillActive = false;
+        let activeShihoPlayer = null;
+        let shihoSkillTimeout = null;
+
         let engine, render, runner;
         const fxLayer = document.getElementById('fx-layer');
         const overlay = document.getElementById('overlay');
@@ -354,30 +509,29 @@
             if (engine) { Runner.stop(runner); Render.stop(render); engine.events = {}; render.canvas.remove(); }
             fxLayer.innerHTML = ''; clearInterval(floodInterval); showers = []; players = []; eatenPlayer = null; eaterPlayer = null;
             rouletteState.active = false;
+            shihoSkillActive = false; activeShihoPlayer = null; clearTimeout(shihoSkillTimeout);
 
             engine = Engine.create(); engine.gravity.y = 0; engine.gravity.x = 0;
             render = Render.create({ element: document.getElementById('game-container'), engine: engine, options: { width: GAME_WIDTH, height: GAME_HEIGHT, wireframes: false, background: 'transparent' } });
 
-            const activeConfigs = [];
-            Object.entries(pickupState).forEach(([k, v]) => { if(v.selected) activeConfigs.push({ charKey: k, isAI: v.isAI }); });
-            
+            // 픽업된 캐릭터 추려내기 및 턴 순서 랜덤 셔플
+            const activeConfigs = []; Object.entries(pickupState).forEach(([k, v]) => { if(v.selected) activeConfigs.push({ charKey: k, isAI: v.isAI }); });
+            for (let i = activeConfigs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [activeConfigs[i], activeConfigs[j]] = [activeConfigs[j], activeConfigs[i]];
+            }
             const startPos = [];
             if (activeConfigs.length === 2) startPos.push({ x: GAME_WIDTH/2, y: 550 }, { x: GAME_WIDTH/2, y: 150 });
-            else {
-                const cx = GAME_WIDTH/2; const cy = GAME_HEIGHT/2; const rx = 145; const ry = 230;
-                for (let i=0; i<activeConfigs.length; i++) { const a = (Math.PI/2) + (2*Math.PI*i)/activeConfigs.length; startPos.push({ x: cx+rx*Math.cos(a), y: cy+ry*Math.sin(a) }); }
-            }
+            else { const cx = GAME_WIDTH/2; const cy = GAME_HEIGHT/2; const rx = 145; const ry = 230; for (let i=0; i<activeConfigs.length; i++) { const a = (Math.PI/2) + (2*Math.PI*i)/activeConfigs.length; startPos.push({ x: cx+rx*Math.cos(a), y: cy+ry*Math.sin(a) }); } }
 
             const br = activeConfigs.length >= 5 ? 22 : 26;
             for (let i = 0; i < activeConfigs.length; i++) {
                 const cfg = activeConfigs[i]; const ck = cfg.charKey; const p = startPos[i];
                 const ball = Bodies.circle(p.x, p.y, br, { 
                     frictionAir: 0.01, restitution: 0.9, friction: 0, 
-                    density: ck==='GIUK'?0.02:(ck==='HYUNMIN'?0.0005:0.002), 
+                    density: ck==='GIUK'?0.01:(ck==='HYUNMIN'?0.001:0.002), 
                     label: `player_${i}`, render: { fillStyle: PLAYER_THEMES[i].color, strokeStyle: '#fff', lineWidth: 2 } 
                 });
-                
-                // 삭제되었던 모든 캐릭터별 상태 변수 확실하게 복구 (윤성/동우 포함)
                 players.push({
                     id: i, isAI: cfg.isAI, charKey: ck, theme: PLAYER_THEMES[i], maxHp: CHARACTERS[ck].maxHp, hp: CHARACTERS[ck].maxHp,
                     skillCharge: 0, targetBounces: ck==='CHANHWI'?Math.floor(Math.random()*10)+1:CHARACTERS[ck].maxBounces, hitCharge: 0, damageTakenCount: 0, attackBonus: 0,
@@ -386,11 +540,11 @@
                     dominating: null, dominatedBy: null, dominationRoundFlag: false,
                     isHeartBroken: false, was1v1: false,
                     isCrushed: false, crushRoundFlag: false, isGiukKnocked: false,
-                    isStunned: false, 
+                    isStunned: false, timeErase: false, shihoTimer: 0,
                     legFracture: false, legFractureRoundFlag: false,
                     armFracture: false, armFractureRoundFlag: false, 
                     fingerFracture: false, fingerFractureRoundFlag: false,
-                    bruiseTimer: null, critDoom: false,
+                    isBruised: false, bruiseRoundFlag: false, critDoom: false,
                     dongwooProbs: { snake: 0.70, imugi: 0.25, dragon: 0.05 }, snakeStacks: 0, imugiStacks: 0, dragonStacks: 0,
                     pingpongBall: null
                 });
@@ -411,7 +565,9 @@
                     if (p.isWet) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 32, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(59,130,246,0.8)'; ctx.lineWidth = 4; ctx.setLineDash([5,5]); ctx.stroke(); ctx.setLineDash([]); }
                     if (p.isStunned) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 34, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(250,204,21,0.9)'; ctx.lineWidth = 3; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]); }
                     if (p.bleedTurnsLeft > 0) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 30, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(225,29,72,0.8)'; ctx.lineWidth = 3; ctx.stroke(); }
-                    if (p.charKey==='HYUNMIN' && p.skillCharge>=CHARACTERS['HYUNMIN'].maxBounces) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 36, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(251,191,36,0.8)'; ctx.lineWidth = 2; ctx.stroke(); }
+                    if (p.timeErase) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 35, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(168,85,247,0.9)'; ctx.lineWidth = 3; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]); }
+                    const fMod = p.fingerFracture ? 1 : 0;
+                    if (p.charKey==='HYUNMIN' && p.skillCharge>=(CHARACTERS['HYUNMIN'].maxBounces + fMod)) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 36, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(251,191,36,0.8)'; ctx.lineWidth = 2; ctx.stroke(); }
                     if (p.dominatedBy) { ctx.beginPath(); ctx.arc(p.ball.position.x, p.ball.position.y, 38, 0, 2*Math.PI); ctx.strokeStyle = 'rgba(147,51,234,0.8)'; ctx.lineWidth = 3; ctx.stroke(); }
 
                     ctx.font = 'bold 12px "Black Han Sans", sans-serif'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
@@ -424,8 +580,7 @@
                         const cp = players[currentPlayerIndex];
                         if (cp) { 
                             let physicalPlayer = cp.dominating ? cp.dominating : cp;
-                            activeBall = physicalPlayer.ball; 
-                            color = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy.theme.color : physicalPlayer.theme.color; 
+                            activeBall = physicalPlayer.ball; color = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy.theme.color : physicalPlayer.theme.color; 
                         }
                     }
                     if (activeBall) {
@@ -455,10 +610,11 @@
 
             players.forEach(p => {
                 const isDead = p.isDead ? 'opacity-40 grayscale' : '';
-                const maxB = p.charKey==='CHANHWI'?p.targetBounces:(CHARACTERS[p.charKey].maxBounces===0?0:Math.max(1, CHARACTERS[p.charKey].maxBounces - (p.dominatedBy ? 1 : 0)));
+                const fMod = p.fingerFracture ? 1 : 0;
+                const maxB = p.charKey==='CHANHWI' ? (p.targetBounces + fMod) : (CHARACTERS[p.charKey].maxBounces===0 ? 0 : Math.max(1, CHARACTERS[p.charKey].maxBounces - (p.dominatedBy ? 1 : 0) + fMod));
                 const charge = p.skillCharge; 
-                const hitCharge = p.hitCharge; const maxH = (p.charKey === 'TAESEONG' && getAlivePlayers().length === 2) ? 3 : CHARACTERS[p.charKey].maxHits;
-                const dmgCharge = p.damageTakenCount; const maxD = CHARACTERS[p.charKey].maxDamaged || 0;
+                const hitCharge = p.hitCharge; const maxH = CHARACTERS[p.charKey].maxHits ? (((p.charKey === 'TAESEONG' && getAlivePlayers().length === 2) ? 3 : CHARACTERS[p.charKey].maxHits) + fMod) : 0;
+                const dmgCharge = p.damageTakenCount; const maxD = CHARACTERS[p.charKey].maxDamaged ? (CHARACTERS[p.charKey].maxDamaged + fMod) : 0;
                 
                 let statusIcon = '';
                 if(p.dominatedBy) statusIcon += '👻';
@@ -471,8 +627,9 @@
                 if(p.snakeStacks > 0) statusIcon += `🐍${p.snakeStacks}`;
                 if(p.imugiStacks > 0) statusIcon += `🌊🐉${p.imugiStacks}`;
                 if(p.dragonStacks > 0) statusIcon += `👑🐉${p.dragonStacks}`;
-                if(p.bruiseTimer && Date.now() - p.bruiseTimer < 10000) statusIcon += '🟣'; 
+                if(p.isBruised) statusIcon += '🟣'; 
                 if(p.critDoom) statusIcon += '💥';
+                if(p.timeErase) statusIcon += '⏳';
                 if(p.bleedTurnsLeft > 0) statusIcon += `🩸${p.bleedTurnsLeft}`;
                 if(p.werewolf) statusIcon += `🐺${p.accuracy}%`;
                 if(p.diabetesTimer) statusIcon += '🍬';
@@ -507,15 +664,9 @@
             if (activeP && !activeP.isDead) {
                 turnBadge.style.opacity = '1';
                 if (gameState === 'ROULETTE') { turnBadge.textContent = `🎰 찬휘 룰렛 진행중!`; turnBadge.style.backgroundColor = '#fbbf24'; turnBadge.style.color = '#000'; } 
-                else if (activeP.dominating) {
-                    turnBadge.textContent = `👻 태성이 턴! (${CHARACTERS[activeP.dominating.charKey].name} 조종)`; turnBadge.style.backgroundColor = '#9333ea'; turnBadge.style.color = '#fff';
-                }
-                else if (activeP.dominatedBy) {
-                    turnBadge.textContent = `👻 태성이 지배중! (${CHARACTERS[activeP.charKey].name} 턴)`; turnBadge.style.backgroundColor = '#9333ea'; turnBadge.style.color = '#fff';
-                } else {
-                    turnBadge.textContent = eatenPlayer ? `${CHARACTERS[activeP.charKey].name} (뱉기!)` : `${CHARACTERS[activeP.charKey].name} 턴!`;
-                    turnBadge.style.backgroundColor = activeP.theme.color; turnBadge.style.color = '#000';
-                }
+                else if (activeP.dominating) { turnBadge.textContent = `👻 태성이 턴! (${CHARACTERS[activeP.dominating.charKey].name} 조종)`; turnBadge.style.backgroundColor = '#9333ea'; turnBadge.style.color = '#fff'; }
+                else if (activeP.dominatedBy) { turnBadge.textContent = `👻 태성이 지배중! (${CHARACTERS[activeP.charKey].name} 턴)`; turnBadge.style.backgroundColor = '#9333ea'; turnBadge.style.color = '#fff'; } 
+                else { turnBadge.textContent = eatenPlayer ? `${CHARACTERS[activeP.charKey].name} (뱉기!)` : `${CHARACTERS[activeP.charKey].name} 턴!`; turnBadge.style.backgroundColor = activeP.theme.color; turnBadge.style.color = '#000'; }
                 setTimeout(() => { if (gameState === 'AIMING') turnBadge.style.opacity = '0'; }, 1500);
             }
         }
@@ -546,8 +697,7 @@
                 if (gameState === 'AIMING') {
                     const p = players[currentPlayerIndex]; if (!p || p.isDead) return;
                     if (p.isStunned) { forceTurnEnd(); return; }
-                    const physicalPlayer = p.dominating ? p.dominating : p;
-                    const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer;
+                    const physicalPlayer = p.dominating ? p.dominating : p; const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer;
                     if (controller.isAI) return;
                     if (Vector.magnitude(Vector.sub(pos, physicalPlayer.ball.position)) < 110) { dragStartPos = physicalPlayer.ball.position; dragCurrentPos = pos; }
                 }
@@ -559,11 +709,7 @@
                     if (distance > 12) {
                         if (gameState === 'AIMING') { 
                             const p = players[currentPlayerIndex]; 
-                            if (p) { 
-                                const physicalPlayer = p.dominating ? p.dominating : p;
-                                const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer; 
-                                if(!controller.isAI) launchPlayerShot(physicalPlayer, pullVector, distance); 
-                            }
+                            if (p) { const physicalPlayer = p.dominating ? p.dominating : p; const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer; if(!controller.isAI) launchPlayerShot(physicalPlayer, pullVector, distance); }
                         } 
                     }
                     dragStartPos = null; dragCurrentPos = null;
@@ -585,40 +731,47 @@
             
             const effectiveMaxBounces = Math.max(1, CHARACTERS[p.charKey].maxBounces - (p.dominatedBy ? 1 : 0));
 
-            // 현우 탁구공 발사 (필드에 없을 때만 서브로 발사, 이미 필드에 있으면 일반 이동하여 직접 들이받음)
-            if (p.charKey === 'HYUNWOO' && p.skillCharge >= effectiveMaxBounces && (!p.pingpongBall || !Composite.allBodies(engine.world).includes(p.pingpongBall))) {
-                playSound('spit'); 
-                let sx = p.ball.position.x + norm.x * 40; 
-                let sy = p.ball.position.y + norm.y * 40;
-                
-                const pr = Bodies.circle(sx, sy, 8, {
-                    isSensor: false, 
-                    restitution: 1.05, 
-                    frictionAir: 0.002,
-                    friction: 0,
-                    density: 0.0001, 
-                    label: 'hyunwoo_pingpong',
-                    render: { fillStyle: '#ffffff', strokeStyle: '#f97316', lineWidth: 2 }
-                });
-                pr.customData = { source: p, isSpike: false, spikeTarget: null, piercedIds: new Set() };
-                Composite.add(engine.world, pr);
-                Body.setVelocity(pr, { x: norm.x * fl * 0.4, y: norm.y * fl * 0.4 });
-                
-                p.pingpongBall = pr;
-                p.skillCharge = 0;
-                
-                Body.setVelocity(p.ball, { x: 0, y: 0 });
-                
-                showFloatingText("🏓 서브!", p.ball.position, '#ffffff', '20px');
-                gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') checkTurnTimeout(); }, 8000);
+            // 시호 스킬 발동 (시간 가속)
+            if (p.charKey === 'SHIHO' && p.skillCharge >= effectiveMaxBounces && p.hitCharge >= CHARACTERS['SHIHO'].maxHits && p.damageTakenCount >= CHARACTERS['SHIHO'].maxDamaged && !shihoSkillActive) {
+                p.skillCharge = 0; p.hitCharge = 0; p.damageTakenCount = 0;
+                executeShihoSkill(p);
                 return; 
             }
 
-            if (p.charKey === 'DONGHO' && p.skillCharge >= effectiveMaxBounces && p.hitCharge >= CHARACTERS['DONGHO'].maxHits && !p.werewolf) {
-                playDonghoBgm(); 
-                Body.scale(p.ball, 1.5, 1.5); 
-                Body.setDensity(p.ball, 0.06); // 기욱(0.02)을 압도하는 늑대인간 괴력 무게감 적용
-                p.hp = Math.min(p.maxHp, p.hp + 30); p.werewolf = true; p.skillCharge = 0; p.hitCharge = 0; p.werewolfTimer = Date.now(); p.accuracy = Math.floor(Math.random()*101);
+            // 현우 탁구공 발사 (서브) 및 스파이크 즉시 발동
+            if (p.charKey === 'HYUNWOO' && p.skillCharge >= effectiveMaxBounces) {
+                    p.skillCharge = 0;
+                    if (!p.pingpongBall || !Composite.allBodies(engine.world).includes(p.pingpongBall)) {
+                        playSound('spit'); let sx = p.ball.position.x + norm.x * 40; let sy = p.ball.position.y + norm.y * 40;
+                        const pr = Bodies.circle(sx, sy, 8, { isSensor: false, restitution: 1.05, frictionAir: 0.002, friction: 0, density: 0.0001, label: 'hyunwoo_pingpong', render: { fillStyle: '#ffffff', strokeStyle: '#f97316', lineWidth: 2 } });
+                        pr.customData = { source: p, isSpike: false, piercedIds: new Set() }; Composite.add(engine.world, pr); Body.setVelocity(pr, { x: norm.x * fl * 0.4, y: norm.y * fl * 0.4 }); 
+                        p.pingpongBall = pr; Body.setVelocity(p.ball, { x: -norm.x * fl * 0.05, y: -norm.y * fl * 0.05 });
+                        showFloatingText("🏓 서브!", p.ball.position, '#ffffff', '20px');
+                    } else {
+                        showFloatingText("스파이크 준비!", p.ball.position, '#f97316');
+                        p.pingpongBall.customData.isSpike = true; p.pingpongBall.customData.spikeStartTime = Date.now(); p.pingpongBall.customData.piercedIds = new Set();
+                        p.pingpongBall.isSensor = true; p.pingpongBall.render.fillStyle = '#f97316'; p.pingpongBall.render.strokeStyle = '#fef08a';
+                        let jumpDir = Vector.normalise(Vector.sub(p.pingpongBall.position, p.ball.position)); Body.setVelocity(p.ball, Vector.mult(jumpDir, 25));
+                        
+                        setTimeout(() => {
+                            if (p.isDead || gameState === 'GAMEOVER') return;
+                            Body.setPosition(p.ball, p.pingpongBall.position); Body.setVelocity(p.ball, { x: 0, y: 0 });
+                            showFloatingText("💥 스파이크!!", p.pingpongBall.position, '#f97316', '24px'); playSound('hit');
+                            const enemies = getAlivePlayers().filter(e => e !== p);
+                            if (enemies.length > 0) {
+                                let furthest = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, p.ball.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, p.ball.position)))[0];
+                                p.pingpongBall.customData.spikeTarget = furthest;
+                                let spikeDir = Vector.normalise(Vector.sub(furthest.ball.position, p.pingpongBall.position)); Body.setVelocity(p.pingpongBall, Vector.mult(spikeDir, 26)); 
+                            } else { Composite.remove(engine.world, p.pingpongBall); p.pingpongBall = null; }
+                            updateUI();
+                        }, 150);
+                    }
+                    gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') forceTurnEnd(); }, 8000);
+                    return; 
+            }
+
+            if (p.charKey === 'DONGHO' && p.skillCharge >= effectiveMaxBounces && p.hitCharge >= (CHARACTERS['DONGHO'].maxHits + (p.fingerFracture ? 1 : 0)) && !p.werewolf) {
+                playDonghoBgm(); Body.scale(p.ball, 1.5, 1.5); Body.setDensity(p.ball, 0.06); p.hp = Math.min(p.maxHp, p.hp + 30); p.werewolf = true; p.skillCharge = 0; p.hitCharge = 0; p.werewolfTimer = Date.now(); p.accuracy = Math.floor(Math.random()*101);
                 showFloatingText(`+30 (정확률 ${p.accuracy}%)`, p.ball.position, '#22c55e', '16px'); updateUI();
             }
 
@@ -631,44 +784,22 @@
                 eatenPlayer.isDebuffed = true; eatenPlayer = null; eaterPlayer = null; p.skillCharge = 0;
             } else {
                 playSound('shoot'); 
-                let vm = 0.15;
-                if (p.charKey === 'GIUK') vm = 0.11; // 기욱이는 무거워서 살짝 느리게
-                else if (p.charKey === 'HYUNMIN') vm = 0.18; // 현민이는 가벼워서 살짝 빠르게
-                if (p.werewolf) vm *= 1.35; // 늑대인간 속도 살짝 완화 (기존 1.5 -> 1.35)
+                let vm = p.werewolf ? 0.15*1.5 : 0.15; 
                 if (p.isCrushed) { vm *= 0.3; showFloatingText("으깨짐..", p.ball.position, '#94a3b8'); }
+                
                 Body.setVelocity(p.ball, { x: norm.x*fl*vm, y: norm.y*fl*vm });
             }
 
-            gameState = 'MOVING'; clearTimeout(turnTimeout); turnTimeout = setTimeout(() => { if(gameState==='MOVING') checkTurnTimeout(); }, p.werewolf ? 21000 : 6000);
-        }
-
-        function checkTurnTimeout() {
-            if (gameState !== 'MOVING') return;
-            const activeP = players[currentPlayerIndex];
-            const physicalTurnPlayer = activeP ? (activeP.dominating ? activeP.dominating : activeP) : null;
-            
-            // 현우 턴이거나 스파이크가 날아가는 중일 때 탁구공이 아직 움직이고 있으면 강제 종료하지 않고 계속 기다림
-            const isPingpongMoving = Composite.allBodies(engine.world).some(b => {
-                if (b.label !== 'hyunwoo_pingpong') return false;
-                const hw = b.customData ? b.customData.source : null;
-                const isSpike = b.customData && b.customData.isSpike;
-                const isHwTurn = hw && !hw.isDead && physicalTurnPlayer === hw;
-                const sp = Vector.magnitude(b.velocity);
-                return (isHwTurn || isSpike) && (sp >= 0.25 || isSpike);
-            });
-
-            if (isPingpongMoving) {
-                turnTimeout = setTimeout(checkTurnTimeout, 500);
-            } else {
-                forceTurnEnd();
-            }
+            gameState = 'MOVING'; clearTimeout(turnTimeout); 
+            // 시호 스킬 시전 중에는 다른 캐릭터의 턴 타임아웃을 연장
+            const turnLimit = (shihoSkillActive && p !== activeShihoPlayer) ? 10000 : (p.werewolf ? 21000 : 6000);
+            turnTimeout = setTimeout(() => { if(gameState==='MOVING') forceTurnEnd(); }, turnLimit);
         }
 
         function scheduleAITurnIfNeeded() {
             clearTimeout(aiActionTimeout); if (gameState !== 'AIMING') return; const p = players[currentPlayerIndex]; if (!p || p.isDead) return;
             if (p.isStunned) { setTimeout(() => { if(gameState==='AIMING') forceTurnEnd(); }, 400); return; }
-            const physicalPlayer = p.dominating ? p.dominating : p;
-            const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer;
+            const physicalPlayer = p.dominating ? p.dominating : p; const controller = physicalPlayer.dominatedBy ? physicalPlayer.dominatedBy : physicalPlayer;
             if (!controller.isAI) return;
             
             aiActionTimeout = setTimeout(() => {
@@ -681,225 +812,242 @@
 
         function dealDamage(targetP, damage, sourceP = null) {
             if (targetP.isDead) return;
+            
+            // 시호 스킬 시전 중 절대 무적 및 타인 공격 무효화
+            if (shihoSkillActive && activeShihoPlayer && !activeShihoPlayer.isDead) {
+                if (targetP === activeShihoPlayer && sourceP !== activeShihoPlayer) {
+                    showFloatingText("⏳ 시간 삭제로 회피!", targetP.ball.position, '#a855f7', '16px');
+                    return;
+                }
+                if (sourceP !== activeShihoPlayer && damage > 0) {
+                    showFloatingText("⏳ 시간 가속으로 공격 회피!", targetP.ball.position, '#38bdf8', '16px');
+                    return;
+                }
+            }
+
             let fd = damage; 
             if (sourceP && sourceP.attackBonus && fd > 0) fd = Math.max(1, fd + sourceP.attackBonus);
-            if (sourceP && sourceP.armFracture && fd > 0) { fd = Math.max(1, Math.floor(fd * 0.7)); showFloatingText("약화된 공격!", sourceP.ball.position, '#94a3b8', '12px'); }
+            if (sourceP && sourceP.armFracture && fd > 0) { fd = Math.max(1, fd - 1); showFloatingText("팔 골절(-1)", sourceP.ball.position, '#94a3b8', '12px'); }
+            if (targetP.isBruised && fd > 0) { fd *= 2; showFloatingText("멍 2배피해!", targetP.ball.position, '#a855f7', '12px'); }
 
-            if (targetP.charKey === 'HYUNMIN' && targetP.skillCharge >= CHARACTERS['HYUNMIN'].maxBounces) {
+            if (!shihoSkillActive && targetP.charKey === 'SHIHO' && fd > 0 && targetP.damageTakenCount < (CHARACTERS['SHIHO'].maxDamaged + (targetP.fingerFracture ? 1 : 0))) { targetP.damageTakenCount++; }
+
+            if (targetP.charKey === 'HYUNMIN' && targetP.skillCharge >= (CHARACTERS['HYUNMIN'].maxBounces + (targetP.fingerFracture ? 1 : 0))) {
                 showFloatingText("무효화 반격!!", targetP.ball.position, '#fbbf24', '20px'); playSound('hit'); targetP.skillCharge = 0;
                 if (eatenPlayer === targetP) { eatenPlayer = null; eaterPlayer = null; Body.setPosition(targetP.ball, { x: GAME_WIDTH/2, y: GAME_HEIGHT/2 }); }
                 createShockwave(targetP.ball.position.x, targetP.ball.position.y, 1500, 'rgba(251,191,36,0.6)'); getAlivePlayers().forEach(p => { if (p !== targetP) dealDamage(p, 30, targetP); }); checkWin(); return;
             }
             if (targetP.charKey === 'HYUNMIN' && !targetP.desperationUsed && targetP.hp - fd <= 5) {
-                targetP.desperationUsed = true;
-                if (targetP.hp - fd <= 0) targetP.hp = 1; else targetP.hp -= fd;
+                targetP.desperationUsed = true; if (targetP.hp - fd <= 0) targetP.hp = 1; else targetP.hp -= fd;
                 showFloatingText("📢 최후의 발악!!", targetP.ball.position, '#fbbf24', '20px'); playSound('hit');
                 createShockwave(targetP.ball.position.x, targetP.ball.position.y, 1600, 'rgba(251,191,36,0.6)'); getAlivePlayers().forEach(p => { if (p !== targetP) dealDamage(p, 15, targetP); }); checkWin(); updateUI(); return;
             }
 
             targetP.hp -= fd; if (fd > 0) showFloatingText(`-${fd}`, targetP.ball.position, '#ef4444');
             
-            if (targetP.charKey === 'GIUK' && fd > 0 && targetP.damageTakenCount < CHARACTERS['GIUK'].maxDamaged) {
+            if (targetP.charKey === 'GIUK' && fd > 0 && !shihoSkillActive && targetP.damageTakenCount < (CHARACTERS['GIUK'].maxDamaged + (targetP.fingerFracture ? 1 : 0))) {
                 targetP.damageTakenCount++; checkGiukSkill(targetP);
             }
-
-            if (targetP.charKey === 'JUNWON' && fd > 0 && targetP.damageTakenCount < CHARACTERS['JUNWON'].maxDamaged) {
-                targetP.damageTakenCount++;
-                if (targetP.hp > 0) checkJunwonSkill(targetP);
+            if (targetP.charKey === 'JUNWON' && fd > 0 && !shihoSkillActive && targetP.damageTakenCount < (CHARACTERS['JUNWON'].maxDamaged + (targetP.fingerFracture ? 1 : 0))) {
+                targetP.damageTakenCount++; if (targetP.hp > 0) checkJunwonSkill(targetP);
             }
 
             if (targetP.hp <= 0) {
                 targetP.hp = 0; targetP.isDead = true; showFloatingText("💀 탈락!", targetP.ball.position, '#94a3b8'); Composite.remove(engine.world, targetP.ball);
                 if (eatenPlayer === targetP) { eatenPlayer = null; eaterPlayer = null; }
                 if (sourceP && sourceP.charKey === 'ME') sourceP.skillCharge = 0;
-
-                // 사망한 캐릭터가 소환했던 탁구공/투사체 정리
-                if (targetP.pingpongBall) {
-                    Composite.remove(engine.world, targetP.pingpongBall);
-                    targetP.pingpongBall = null;
-                }
-                Composite.allBodies(engine.world).forEach(b => {
-                    if (b.customData && b.customData.source === targetP) {
-                        Composite.remove(engine.world, b);
-                    }
-                });
                 
+                // 시호 본인 사망 시 스킬 취소
+                if (shihoSkillActive && activeShihoPlayer === targetP) {
+                    endShihoSkill();
+                }
+                
+                // 군주의 지배 관련 정리 (숙주 사망 시 탈출)
                 if (targetP.dominatedBy) {
                     let t = targetP.dominatedBy;
                     t.dominating = null; targetP.dominatedBy = null;
-                    Body.setPosition(t.ball, { x: GAME_WIDTH/2, y: GAME_HEIGHT/2 });
-                    t.ball.isSensor = false; showFloatingText("숙주 사망! 강제 해제", t.ball.position, '#9333ea', '16px');
+                    Body.setPosition(t.ball, { x: GAME_WIDTH/2, y: GAME_HEIGHT/2 }); t.ball.isSensor = false; showFloatingText("숙주 사망! 강제 해제", t.ball.position, '#9333ea', '16px');
                 }
-                if (targetP.dominating) {
-                    targetP.dominating.dominatedBy = null; targetP.dominating = null;
-                }
+                if (targetP.dominating) { targetP.dominating.dominatedBy = null; targetP.dominating = null; }
             }
             updateUI();
         }
 
+        // --- 시호 스킬 로직 ---
+        function executeShihoSkill(shiho) {
+            shihoSkillActive = true; 
+            activeShihoPlayer = shiho; 
+            shiho.shihoTimer = Date.now();
+            
+            showFloatingText("킹크림슨!! (시간가속)", shiho.ball.position, '#ef4444', '24px'); 
+            playSound('hit');
+            
+            // 0.15배속 슬로우 모션
+            engine.timing.timeScale = 0.15;
+            
+            shiho.ball.frictionAir = 0; 
+            shiho.ball.restitution = 1.05;
+            shiho.ball.isBullet = true; 
+            
+            const angle = Math.random() * Math.PI * 2; 
+            // 미친 속도로 즉시 발사
+            Body.setVelocity(shiho.ball, { x: Math.cos(angle) * 180, y: Math.sin(angle) * 180 });
+            
+            // 20초간 유지되는 독립적인 스킬 타이머
+            clearTimeout(shihoSkillTimeout);
+            shihoSkillTimeout = setTimeout(() => {
+                if (shihoSkillActive) endShihoSkill();
+            }, 20000);
+            
+            // 시호의 턴을 즉시 종료시켜 다른 사람이 행동할 수 있게 함 (단, 시호는 멈추지 않음)
+            forceTurnEnd();
+        }
+
+        function endShihoSkill() {
+            shihoSkillActive = false; 
+            engine.timing.timeScale = 1.0;
+            const shiho = activeShihoPlayer;
+            activeShihoPlayer = null;
+            
+            if (!shiho || shiho.isDead) {
+                forceTurnEnd(); return;
+            }
+            
+            shiho.ball.frictionAir = 0.01; 
+            shiho.ball.restitution = 0.9;
+            shiho.ball.isBullet = false;
+            Body.setVelocity(shiho.ball, {x:0, y:0});
+            
+            let timeErasedPlayers = getAlivePlayers().filter(p => p.timeErase && p !== shiho);
+            if (timeErasedPlayers.length > 0) {
+                showFloatingText("시간은 다시 움직인다.", shiho.ball.position, '#ef4444', '20px');
+                playSound('gun_click');
+                
+                let sx = Math.max(85, Math.min(GAME_WIDTH - 85, shiho.ball.position.x));
+                let sy = Math.max(85, Math.min(GAME_HEIGHT - 85, shiho.ball.position.y));
+                Body.setPosition(shiho.ball, { x: sx, y: sy });
+
+                let frontDir = Vector.sub({ x: GAME_WIDTH / 2, y: GAME_HEIGHT / 2 }, { x: sx, y: sy });
+                if (Vector.magnitude(frontDir) < 1) frontDir = { x: 0, y: -1 };
+                else frontDir = Vector.normalise(frontDir);
+                let baseAngle = Math.atan2(frontDir.y, frontDir.x);
+                
+                timeErasedPlayers.forEach((p, idx) => {
+                    p.timeErase = false;
+                    const spread = (idx - (timeErasedPlayers.length - 1) / 2) * 0.45;
+                    const angle = baseAngle + spread;
+                    const targetX = Math.max(40, Math.min(GAME_WIDTH - 40, sx + Math.cos(angle) * 58));
+                    const targetY = Math.max(40, Math.min(GAME_HEIGHT - 40, sy + Math.sin(angle) * 58));
+                    
+                    Body.setPosition(p.ball, { x: targetX, y: targetY });
+                    Body.setVelocity(p.ball, {x:0, y:0});
+                    
+                    setTimeout(() => {
+                        if (p.isDead || shiho.isDead || gameState === 'GAMEOVER') return;
+                        dealDamage(p, 30, shiho); 
+                        showFloatingText("💥결과뿐이다!", p.ball.position, '#ef4444', '22px'); 
+                        playSound('hit'); checkWin();
+                    }, 120);
+                });
+                
+                setTimeout(() => {
+                    if (shiho.isDead || gameState === 'GAMEOVER') return;
+                    clearTimeout(turnTimeout); clearTimeout(aiActionTimeout);
+                    getAlivePlayers().forEach(pl => Body.setVelocity(pl.ball, {x:0, y:0}));
+                    currentPlayerIndex = shiho.id; gameState = 'AIMING'; 
+                    updateUI(); scheduleAITurnIfNeeded();
+                }, 450);
+            } else {
+                if (players[currentPlayerIndex] === shiho) forceTurnEnd();
+                else updateUI();
+            }
+        }
+
         function checkGiukSkill(giuk) {
-            if (giuk.isDead || gameState === 'GAMEOVER') return;
-            if (giuk.charKey === 'GIUK' && giuk.hitCharge >= CHARACTERS['GIUK'].maxHits && giuk.damageTakenCount >= CHARACTERS['GIUK'].maxDamaged) {
+            if (giuk.isDead || gameState === 'GAMEOVER' || shihoSkillActive) return;
+            const fMod = giuk.fingerFracture ? 1 : 0;
+            if (giuk.charKey === 'GIUK' && giuk.hitCharge >= (CHARACTERS['GIUK'].maxHits + fMod) && giuk.damageTakenCount >= (CHARACTERS['GIUK'].maxDamaged + fMod)) {
                 giuk.hitCharge = 0; giuk.damageTakenCount = 0;
                 executeGiukSkill(giuk);
             }
         }
 
         function executeGiukSkill(giuk) {
-            showFloatingText("폭주!!", giuk.ball.position, '#ef4444', '24px');
-            const enemies = getAlivePlayers().filter(p => p !== giuk);
-            if(enemies.length === 0) return;
-            
-            Body.setVelocity(giuk.ball, {x:0, y:0});
-            let nearest1 = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(a.ball.position, giuk.ball.position)) - Vector.magnitudeSquared(Vector.sub(b.ball.position, giuk.ball.position)))[0];
-            
-            const dir1 = Vector.normalise(Vector.sub(nearest1.ball.position, giuk.ball.position));
-            Body.setVelocity(giuk.ball, Vector.mult(dir1, 25));
-            
+            showFloatingText("폭주!!", giuk.ball.position, '#ef4444', '24px'); const enemies = getAlivePlayers().filter(p => p !== giuk); if(enemies.length === 0) return;
+            Body.setVelocity(giuk.ball, {x:0, y:0}); let nearest1 = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(a.ball.position, giuk.ball.position)) - Vector.magnitudeSquared(Vector.sub(b.ball.position, giuk.ball.position)))[0];
+            const dir1 = Vector.normalise(Vector.sub(nearest1.ball.position, giuk.ball.position)); Body.setVelocity(giuk.ball, Vector.mult(dir1, 25));
             setTimeout(() => {
-                if(nearest1.isDead || giuk.isDead) return;
-                Body.setPosition(giuk.ball, nearest1.ball.position);
-                playSound('hit'); showFloatingText("날아가라!", nearest1.ball.position, '#f59e0b', '20px');
-                
-                const flyDir = Vector.normalise({x: Math.random()-0.5, y: Math.random()-0.5});
-                // 수찬이가 뱉을 때의 한계 속도(65)와 동일하게 날아가도록 수정
-                Body.setVelocity(nearest1.ball, Vector.mult(flyDir, 65));
-                nearest1.isGiukKnocked = true;
-                
-                let remainingEnemies = getAlivePlayers().filter(p => p !== giuk && p !== nearest1);
-                let nearest2 = remainingEnemies.length > 0 ? remainingEnemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(a.ball.position, giuk.ball.position)) - Vector.magnitudeSquared(Vector.sub(b.ball.position, giuk.ball.position)))[0] : nearest1;
-                
+                if(nearest1.isDead || giuk.isDead) return; Body.setPosition(giuk.ball, nearest1.ball.position); playSound('hit'); showFloatingText("날아가라!", nearest1.ball.position, '#f59e0b', '20px');
+                const flyDir = Vector.normalise({x: Math.random()-0.5, y: Math.random()-0.5}); Body.setVelocity(nearest1.ball, Vector.mult(flyDir, 65)); nearest1.isGiukKnocked = true;
+                let remainingEnemies = getAlivePlayers().filter(p => p !== giuk && p !== nearest1); let nearest2 = remainingEnemies.length > 0 ? remainingEnemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(a.ball.position, giuk.ball.position)) - Vector.magnitudeSquared(Vector.sub(b.ball.position, giuk.ball.position)))[0] : nearest1;
                 setTimeout(() => {
-                    if (nearest2.isDead || giuk.isDead) return;
-                    Body.setPosition(giuk.ball, nearest2.ball.position);
-                    Body.setVelocity(giuk.ball, {x:0, y:0});
-                    playSound('bounce');
-                    
-                    let isInstaKill = Math.random() < 0.05;
-                    let dmg = isInstaKill ? 999 : 20;
-                    if(isInstaKill) showFloatingText("즉사!!", nearest2.ball.position, '#991b1b', '28px');
-                    else showFloatingText("깔아뭉개기!", nearest2.ball.position, '#ef4444', '20px');
-                    
-                    dealDamage(nearest2, dmg, giuk);
-                    if(!nearest2.isDead) { nearest2.isCrushed = true; nearest2.crushRoundFlag = false; }
+                    if (nearest2.isDead || giuk.isDead) return; Body.setPosition(giuk.ball, nearest2.ball.position); Body.setVelocity(giuk.ball, {x:0, y:0}); playSound('bounce');
+                    let isInstaKill = Math.random() < (cheatProbUp ? 1.0 : 0.05); let dmg = isInstaKill ? 999 : 20;
+                    if(isInstaKill) showFloatingText("즉사!!", nearest2.ball.position, '#991b1b', '28px'); else showFloatingText("깔아뭉개기!", nearest2.ball.position, '#ef4444', '20px');
+                    dealDamage(nearest2, dmg, giuk); if(!nearest2.isDead) { nearest2.isCrushed = true; nearest2.crushRoundFlag = false; }
                 }, 400); 
             }, 200); 
         }
 
         function checkJunwonSkill(junwon) {
-            if (junwon.isDead || gameState === 'GAMEOVER') return;
-            const maxB = Math.max(1, CHARACTERS['JUNWON'].maxBounces - (junwon.dominatedBy ? 1 : 0));
-            if (junwon.charKey === 'JUNWON' && junwon.skillCharge >= maxB && junwon.damageTakenCount >= CHARACTERS['JUNWON'].maxDamaged) {
+            if (junwon.isDead || gameState === 'GAMEOVER' || shihoSkillActive) return;
+            const fMod = junwon.fingerFracture ? 1 : 0; const maxB = Math.max(1, CHARACTERS['JUNWON'].maxBounces - (junwon.dominatedBy ? 1 : 0) + fMod);
+            if (junwon.charKey === 'JUNWON' && junwon.skillCharge >= maxB && junwon.damageTakenCount >= (CHARACTERS['JUNWON'].maxDamaged + fMod)) {
                 junwon.skillCharge = 0; junwon.damageTakenCount = 0; executeJunwonSkill(junwon);
             }
         }
-
         function executeJunwonSkill(junwon) {
-            if (junwon.isDead || gameState === 'GAMEOVER') return;
-            const enemies = getAlivePlayers().filter(p => p !== junwon);
-            if (enemies.length === 0) return;
-
-            showFloatingText("⚡ 폭풍을 부르는 자!!", junwon.ball.position, '#38bdf8', '22px');
-            Body.setVelocity(junwon.ball, { x: 0, y: 0 });
-
-            const nearest = enemies.sort((a, b) =>
-                Vector.magnitudeSquared(Vector.sub(a.ball.position, junwon.ball.position)) -
-                Vector.magnitudeSquared(Vector.sub(b.ball.position, junwon.ball.position))
-            )[0];
-
-            const dashDir = Vector.normalise(Vector.sub(nearest.ball.position, junwon.ball.position));
-            Body.setVelocity(junwon.ball, Vector.mult(dashDir, 24));
-
+            if (junwon.isDead || gameState === 'GAMEOVER') return; const enemies = getAlivePlayers().filter(p => p !== junwon); if (enemies.length === 0) return;
+            showFloatingText("⚡ 폭풍을 부르는 자!!", junwon.ball.position, '#38bdf8', '22px'); Body.setVelocity(junwon.ball, { x: 0, y: 0 });
+            const nearest = enemies.sort((a, b) => Vector.magnitudeSquared(Vector.sub(a.ball.position, junwon.ball.position)) - Vector.magnitudeSquared(Vector.sub(b.ball.position, junwon.ball.position)))[0];
+            const dashDir = Vector.normalise(Vector.sub(nearest.ball.position, junwon.ball.position)); Body.setVelocity(junwon.ball, Vector.mult(dashDir, 24));
             setTimeout(() => {
-                if (junwon.isDead || gameState === 'GAMEOVER') return;
-                const landPos = nearest.isDead ? { x: junwon.ball.position.x, y: junwon.ball.position.y } : { x: nearest.ball.position.x, y: nearest.ball.position.y };
-
-                Body.setPosition(junwon.ball, landPos);
-                Body.setVelocity(junwon.ball, { x: 0, y: 0 });
-                playSound('kkang');
-
-                const br = junwon.ball.circleRadius || 22;
-                const aoeRadius = br * 3;
-                createShockwave(landPos.x, landPos.y, aoeRadius * 2, 'rgba(56, 189, 248, 0.85)');
-
+                if (junwon.isDead || gameState === 'GAMEOVER') return; const landPos = nearest.isDead ? { x: junwon.ball.position.x, y: junwon.ball.position.y } : { x: nearest.ball.position.x, y: nearest.ball.position.y };
+                Body.setPosition(junwon.ball, landPos); Body.setVelocity(junwon.ball, { x: 0, y: 0 }); playSound('kkang');
+                const br = junwon.ball.circleRadius || 22; const aoeRadius = br * 3; createShockwave(landPos.x, landPos.y, aoeRadius * 2, 'rgba(56, 189, 248, 0.85)');
                 getAlivePlayers().forEach(enemy => {
-                    if (enemy === junwon) return;
-                    const dist = Vector.magnitude(Vector.sub(enemy.ball.position, landPos));
-                    if (dist <= aoeRadius) {
-                        dealDamage(enemy, 30, junwon);
-                        if (!enemy.isDead) { enemy.isStunned = true; showFloatingText("⚡ 기절!", enemy.ball.position, '#facc15', '18px'); }
-                    }
+                    if (enemy === junwon) return; const dist = Vector.magnitude(Vector.sub(enemy.ball.position, landPos));
+                    if (dist <= aoeRadius) { dealDamage(enemy, 30, junwon); if (!enemy.isDead) { enemy.isStunned = true; showFloatingText("⚡ 기절!", enemy.ball.position, '#facc15', '18px'); } }
                 });
-
-                junwon.hp = Math.min(junwon.maxHp, junwon.hp + 20);
-                showFloatingText("+20 HP", junwon.ball.position, '#22c55e', '18px');
-                updateUI(); checkWin();
+                junwon.hp = Math.min(junwon.maxHp, junwon.hp + 20); showFloatingText("+20 HP", junwon.ball.position, '#22c55e', '18px'); updateUI(); checkWin();
             }, 250);
+        }
+
+        function handleDongwooStack(target, type, dongwoo) {
+            if (target.isDead || gameState === 'GAMEOVER') return;
+            if (target.snakeStacks === undefined) target.snakeStacks = 0; if (target.imugiStacks === undefined) target.imugiStacks = 0; if (target.dragonStacks === undefined) target.dragonStacks = 0;
+            if (type === 'snake') {
+                target.snakeStacks++;
+                if (target.snakeStacks >= 5) {
+                    target.snakeStacks = 0;
+                    if (Math.random() < (cheatProbUp ? 1.0 : 0.40)) { target.imugiStacks = 1; dongwoo.dongwooProbs = { snake: 0, imugi: 0.95, dragon: 0.05 }; showFloatingText("🌊🐉 이무기 스택 진화!", target.ball.position, '#3b82f6'); }
+                } else { let dmg = target.snakeStacks * 1; dealDamage(target, dmg, dongwoo); showFloatingText(`🐍 조임(-${dmg})`, target.ball.position, '#22c55e'); }
+            } else if (type === 'imugi') {
+                target.imugiStacks++;
+                if (target.imugiStacks >= 5) {
+                    target.imugiStacks = 0;
+                    if (Math.random() < (cheatProbUp ? 1.0 : 0.10)) { target.dragonStacks = 1; dongwoo.dongwooProbs = { snake: 0, imugi: 0, dragon: 1.0 }; showFloatingText("👑🐉 용 스택 승천!!", target.ball.position, '#eab308'); }
+                } else { let dmg = target.imugiStacks * 2; dealDamage(target, dmg, dongwoo); showFloatingText(`🌊🐉 옥죄기(-${dmg})`, target.ball.position, '#3b82f6'); }
+            } else if (type === 'dragon') {
+                target.dragonStacks++;
+                if (target.dragonStacks >= 5) { showFloatingText("👑🐉 용의 심판!! (즉사)", target.ball.position, '#991b1b', '24px'); dealDamage(target, 999, dongwoo); } 
+                else { showFloatingText(`👑🐉 표식(${target.dragonStacks}/5)`, target.ball.position, '#eab308'); }
+            }
+            updateUI();
         }
 
         function applyDiabetes(tp) { showFloatingText('당뇨!', tp.ball.position, '#a855f7'); clearInterval(tp.diabetesTimer); tp.diabetesTimer = setInterval(() => { if(gameState==='GAMEOVER'||tp.isDead){clearInterval(tp.diabetesTimer);return;} playSound('diabetes_tick'); dealDamage(tp, Math.floor(Math.random()*3)+1); checkWin(); }, 3000); }
         function applyBleed(tp) { showFloatingText('🩸 10초 출혈!', tp.ball.position, '#e11d48'); tp.bleedTurnsLeft = 10; clearInterval(tp.bleedTimer); tp.bleedTimer = setInterval(() => { if(gameState==='GAMEOVER'||tp.isDead||tp.bleedTurnsLeft<=0){clearInterval(tp.bleedTimer);tp.bleedTurnsLeft=0;updateUI();return;} if(gameState!=='ROULETTE'){tp.bleedTurnsLeft--; playSound('diabetes_tick');dealDamage(tp,1);checkWin();updateUI();} }, 1000); updateUI(); }
 
-        // --- 동우 스택 로직 ---
-        function handleDongwooStack(target, type, dongwoo) {
-            if (target.isDead || gameState === 'GAMEOVER') return;
-            
-            if (target.snakeStacks === undefined) target.snakeStacks = 0;
-            if (target.imugiStacks === undefined) target.imugiStacks = 0;
-            if (target.dragonStacks === undefined) target.dragonStacks = 0;
-
-            if (type === 'snake') {
-                target.snakeStacks++;
-                if (target.snakeStacks >= 5) {
-                    target.snakeStacks = 0;
-                    if (Math.random() < 0.40) {
-                        target.imugiStacks = 1;
-                        dongwoo.dongwooProbs = { snake: 0, imugi: 0.95, dragon: 0.05 };
-                        showFloatingText("🌊🐉 이무기 스택 진화!", target.ball.position, '#3b82f6');
-                    }
-                } else {
-                    let dmg = target.snakeStacks * 1;
-                    dealDamage(target, dmg, dongwoo);
-                    showFloatingText(`🐍 조임(-${dmg})`, target.ball.position, '#22c55e');
-                }
-            } else if (type === 'imugi') {
-                target.imugiStacks++;
-                if (target.imugiStacks >= 5) {
-                    target.imugiStacks = 0;
-                    if (Math.random() < 0.10) {
-                        target.dragonStacks = 1;
-                        dongwoo.dongwooProbs = { snake: 0, imugi: 0, dragon: 1.0 };
-                        showFloatingText("👑🐉 용 스택 승천!!", target.ball.position, '#eab308');
-                    }
-                } else {
-                    let dmg = target.imugiStacks * 2;
-                    dealDamage(target, dmg, dongwoo);
-                    showFloatingText(`🌊🐉 옥죄기(-${dmg})`, target.ball.position, '#3b82f6');
-                }
-            } else if (type === 'dragon') {
-                target.dragonStacks++;
-                if (target.dragonStacks >= 5) {
-                    showFloatingText("👑🐉 용의 심판!! (즉사)", target.ball.position, '#991b1b', '24px');
-                    dealDamage(target, 999, dongwoo);
-                } else {
-                    showFloatingText(`👑🐉 표식(${target.dragonStacks}/5)`, target.ball.position, '#eab308');
-                }
-            }
-            updateUI();
-        }
-
-        // --- 러시안 룰렛 ---
         function startRussianRoulette(chanhwiP) {
             gameState = 'ROULETTE'; clearTimeout(turnTimeout); getAlivePlayers().forEach(p => Body.setVelocity(p.ball, {x:0,y:0}));
-            chanhwiP.skillCharge = 0; chanhwiP.targetBounces = Math.floor(Math.random()*10)+1;
+            const fMod = chanhwiP.fingerFracture ? 1 : 0; chanhwiP.skillCharge = 0; chanhwiP.targetBounces = Math.floor(Math.random()*10)+1 + fMod;
             const bc = Math.floor(Math.random()*6)+1; const ch = Array(6).fill(false); for(let i=0;i<bc;i++) ch[i]=true; for(let i=5;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ch[i],ch[j]]=[ch[j],ch[i]];}
-            const alive = getAlivePlayers(); const others = alive.filter(p => p !== chanhwiP);
-            for (let i = others.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [others[i], others[j]] = [others[j], others[i]]; }
+            const alive = getAlivePlayers(); const others = alive.filter(p => p !== chanhwiP); for (let i = others.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [others[i], others[j]] = [others[j], others[i]]; }
             const order = [chanhwiP, ...others];
-            rouletteState = { active: true, owner: chanhwiP, order: order, turnIdx: 0, chambers: ch, currentSlot: 0, bulletCount: bc, canSee: Math.random()<0.5, rigUsed: false, busy: false };
+            rouletteState = { active: true, owner: chanhwiP, order: order, turnIdx: 0, chambers: ch, currentSlot: 0, bulletCount: bc, canSee: Math.random()<(cheatProbUp ? 1.0 : 0.5), rigUsed: false, busy: false };
             document.getElementById('roulette-target-picker').classList.add('hidden'); document.getElementById('roulette-actions').classList.remove('hidden'); document.getElementById('roulette-modal').classList.remove('hidden'); updateUI(); renderRouletteUI(); scheduleAIRouletteTurnIfNeeded();
         }
-
         function renderRouletteUI() {
             if(!rouletteState.active) return; const sh = rouletteState.order[rouletteState.turnIdx];
             document.getElementById('roulette-info').textContent = `남은 ${6-rouletteState.currentSlot}칸 / 실탄 ${rouletteState.chambers.slice(rouletteState.currentSlot).filter(Boolean).length}발`;
@@ -913,31 +1061,20 @@
                 cylEl.appendChild(dot);
             }
             const cb = document.getElementById('roulette-cheat-box'); const rb = document.getElementById('roulette-rig-btn');
-            if (rouletteState.canSee && sh===rouletteState.owner && !sh.isAI && rouletteState.currentSlot<6) {
-                cb.classList.remove('hidden'); document.getElementById('roulette-vision-text').textContent = `👁️ 현재 약실: ${rouletteState.chambers[rouletteState.currentSlot]?'🔥실탄':'💨빈칸'}`;
-                if(rouletteState.rigUsed){rb.disabled=true;rb.classList.add('opacity-40');rb.textContent='완료됨';}else{rb.disabled=false;rb.classList.remove('opacity-40');rb.textContent='조작하기';}
-            } else { cb.classList.add('hidden'); }
+            if (rouletteState.canSee && sh===rouletteState.owner && !sh.isAI && rouletteState.currentSlot<6) { cb.classList.remove('hidden'); document.getElementById('roulette-vision-text').textContent = `👁️ 현재 약실: ${rouletteState.chambers[rouletteState.currentSlot]?'🔥실탄':'💨빈칸'}`; if(rouletteState.rigUsed){rb.disabled=true;rb.classList.add('opacity-40');rb.textContent='완료됨';}else{rb.disabled=false;rb.classList.remove('opacity-40');rb.textContent='조작하기';} } else { cb.classList.add('hidden'); }
             if (sh.isAI) document.getElementById('roulette-actions').classList.add('opacity-50','pointer-events-none'); else document.getElementById('roulette-actions').classList.remove('opacity-50','pointer-events-none');
         }
-
         function scheduleAIRouletteTurnIfNeeded() {
             clearTimeout(aiActionTimeout); if(!rouletteState.active||rouletteState.busy)return; const sh = rouletteState.order[rouletteState.turnIdx]; if(!sh||sh.isDead||!sh.isAI)return;
             aiActionTimeout = setTimeout(() => {
                 if(!rouletteState.active||rouletteState.busy)return; const e = getAlivePlayers().filter(p=>p!==sh); if(e.length===0)return; const tg = e.sort((a,b)=>a.hp-b.hp)[0];
                 if(rouletteState.canSee && sh===rouletteState.owner && !rouletteState.rigUsed && rouletteState.chambers[rouletteState.currentSlot]) { handleRouletteShot('ENEMY', tg); return; }
                 const rs = 6-rouletteState.currentSlot; const rb = rouletteState.chambers.slice(rouletteState.currentSlot).filter(Boolean).length;
-                if(rouletteState.canSee && sh===rouletteState.owner) { handleRouletteShot(rouletteState.chambers[rouletteState.currentSlot]?'ENEMY':'SELF',tg); } 
-                else { 
-                    const shootEnemyChance = (rb/rs) + (Math.random() * 0.4 - 0.2); 
-                    if(Math.random() < shootEnemyChance) handleRouletteShot('ENEMY', tg); else handleRouletteShot('SELF', null); 
-                }
+                if(rouletteState.canSee && sh===rouletteState.owner) { handleRouletteShot(rouletteState.chambers[rouletteState.currentSlot]?'ENEMY':'SELF',tg); } else { const shootEnemyChance = (rb/rs) + (Math.random() * 0.4 - 0.2); if(Math.random() < shootEnemyChance) handleRouletteShot('ENEMY', tg); else handleRouletteShot('SELF', null); }
             }, 1200);
         }
-
         document.getElementById('roulette-rig-btn').addEventListener('click', () => { if(!rouletteState.active||!rouletteState.canSee||rouletteState.rigUsed||rouletteState.busy)return; rouletteState.chambers[rouletteState.currentSlot]=!rouletteState.chambers[rouletteState.currentSlot]; rouletteState.rigUsed=true; playSound('gun_click'); renderRouletteUI(); });
-        document.getElementById('shoot-self-btn').addEventListener('click', () => handleRouletteShot('SELF'));
-        document.getElementById('shoot-enemy-btn').addEventListener('click', () => handleRouletteShot('ENEMY'));
-        document.getElementById('cancel-target-btn').addEventListener('click', () => { document.getElementById('roulette-target-picker').classList.add('hidden'); document.getElementById('roulette-actions').classList.remove('hidden'); });
+        document.getElementById('shoot-self-btn').addEventListener('click', () => handleRouletteShot('SELF')); document.getElementById('shoot-enemy-btn').addEventListener('click', () => handleRouletteShot('ENEMY')); document.getElementById('cancel-target-btn').addEventListener('click', () => { document.getElementById('roulette-target-picker').classList.add('hidden'); document.getElementById('roulette-actions').classList.remove('hidden'); });
 
         function handleRouletteShot(type, opp=null) {
             if(!rouletteState.active||rouletteState.busy)return; const sh = rouletteState.order[rouletteState.turnIdx]; const e = getAlivePlayers().filter(p=>p!==sh); if(e.length===0)return;
@@ -957,21 +1094,10 @@
                 else { playSound('gun_click'); opp.hp=Math.min(opp.maxHp,opp.hp+10); showFloatingText('+10HP',opp.ball.position,'#4ade80'); lg.textContent=`틱! ${CHARACTERS[opp.charKey].name} 10회복`; }
             }
             updateUI(); renderRouletteUI(); if(checkWin())return;
-
-            if (rouletteState.owner.isDead) {
-                setTimeout(() => {
-                    document.getElementById('roulette-modal').classList.add('hidden');
-                    rouletteState.active = false; rouletteState.busy = false;
-                    document.getElementById('roulette-actions').classList.remove('hidden');
-                    do { currentPlayerIndex = (currentPlayerIndex + 1) % players.length; } while (players[currentPlayerIndex].isDead);
-                    gameState = 'AIMING'; updateUI(); scheduleAITurnIfNeeded();
-                }, 1000);
-                return;
-            }
+            if (rouletteState.owner.isDead) { setTimeout(() => { document.getElementById('roulette-modal').classList.add('hidden'); rouletteState.active = false; rouletteState.busy = false; document.getElementById('roulette-actions').classList.remove('hidden'); do { currentPlayerIndex = (currentPlayerIndex + 1) % players.length; } while (players[currentPlayerIndex].isDead); gameState = 'AIMING'; updateUI(); scheduleAITurnIfNeeded(); }, 1000); return; }
             setTimeout(() => {
                 if(rouletteState.currentSlot>=6){ document.getElementById('roulette-modal').classList.add('hidden'); rouletteState.active=false; rouletteState.busy=false; document.getElementById('roulette-actions').classList.remove('hidden'); currentPlayerIndex=rouletteState.owner.id; gameState='AIMING'; updateUI(); scheduleAITurnIfNeeded(); return; }
-                let nx=(rouletteState.turnIdx+1)%rouletteState.order.length; while(rouletteState.order[nx].isDead) nx=(nx+1)%rouletteState.order.length;
-                rouletteState.turnIdx=nx; rouletteState.busy=false; renderRouletteUI(); scheduleAIRouletteTurnIfNeeded();
+                let nx=(rouletteState.turnIdx+1)%rouletteState.order.length; while(rouletteState.order[nx].isDead) nx=(nx+1)%rouletteState.order.length; rouletteState.turnIdx=nx; rouletteState.busy=false; renderRouletteUI(); scheduleAIRouletteTurnIfNeeded();
             }, 1200);
         }
 
@@ -984,51 +1110,21 @@
                     const { bodyA, bodyB } = pair;
                     
                     if (bodyA.label.includes('_proj') || bodyB.label.includes('_proj')) {
-                        const proj = bodyA.label.includes('_proj') ? bodyA : bodyB; 
-                        const other = bodyA.label.includes('_proj') ? bodyB : bodyA;
-                        
+                        const proj = bodyA.label.includes('_proj') ? bodyA : bodyB; const other = bodyA.label.includes('_proj') ? bodyB : bodyA;
                         if (other.label === 'wall') { 
-                            if (proj.customData && proj.customData.spawnTime && Date.now() - proj.customData.spawnTime < 300) {
-                                return; // 방금 스폰된 투사체는 즉시 증발하지 않게 보호
-                            }
-                            Composite.remove(engine.world, proj); 
-                            return; 
+                            if (proj.customData && proj.customData.spawnTime && Date.now() - proj.customData.spawnTime < 300) return;
+                            Composite.remove(engine.world, proj); return; 
                         }
-                        
                         let dp = players.find(p => p.ball === other);
                         if (dp) { 
-                            if (proj.label === 'namgyu_proj') {
-                                Composite.remove(engine.world, proj); 
-                                showFloatingText(`두쫀쿠!`, dp.ball.position, '#f59e0b'); 
-                                dealDamage(dp, Math.floor(Math.random()*6)+5); 
-                                dp.hitsFromNamgyu++; 
-                                if(dp.hitsFromNamgyu===5) applyDiabetes(dp); 
-                                checkWin(); 
-                            } else if (proj.label.startsWith('dongwoo_proj_')) {
-                                if (dp === proj.customData.source) return; // 자가 충돌 무시
-
+                            if (proj.label === 'namgyu_proj') { Composite.remove(engine.world, proj); showFloatingText(`두쫀쿠!`, dp.ball.position, '#f59e0b'); dealDamage(dp, Math.floor(Math.random()*6)+5); dp.hitsFromNamgyu++; if(dp.hitsFromNamgyu===5) applyDiabetes(dp); checkWin(); } 
+                            else if (proj.label.startsWith('dongwoo_proj_')) {
+                                if (dp === proj.customData.source) return;
                                 if (proj.customData && !proj.customData.hitPlayers.has(dp.id)) {
-                                    proj.customData.hitPlayers.add(dp.id);
-                                    let type = proj.label.replace('dongwoo_proj_', '');
-                                    let source = proj.customData.source;
-                                    
-                                    if (type === 'snake') {
-                                        Composite.remove(engine.world, proj);
-                                        dealDamage(dp, Math.floor(Math.random()*4)+5, source);
-                                        handleDongwooStack(dp, 'snake', source);
-                                    } else if (type === 'imugi') {
-                                        dealDamage(dp, Math.floor(Math.random()*5)+8, source);
-                                        handleDongwooStack(dp, 'imugi', source);
-                                    } else if (type === 'dragon') {
-                                        if (dp === proj.customData.target) {
-                                            dealDamage(dp, 30, source);
-                                            handleDongwooStack(dp, 'dragon', source);
-                                            Composite.remove(engine.world, proj);
-                                        } else {
-                                            dealDamage(dp, 10, source);
-                                            handleDongwooStack(dp, 'dragon', source);
-                                        }
-                                    }
+                                    proj.customData.hitPlayers.add(dp.id); let type = proj.label.replace('dongwoo_proj_', ''); let source = proj.customData.source;
+                                    if (type === 'snake') { Composite.remove(engine.world, proj); dealDamage(dp, Math.floor(Math.random()*4)+5, source); handleDongwooStack(dp, 'snake', source); } 
+                                    else if (type === 'imugi') { dealDamage(dp, Math.floor(Math.random()*5)+8, source); handleDongwooStack(dp, 'imugi', source); } 
+                                    else if (type === 'dragon') { if (dp === proj.customData.target) { dealDamage(dp, 30, source); handleDongwooStack(dp, 'dragon', source); Composite.remove(engine.world, proj); } else { dealDamage(dp, 10, source); handleDongwooStack(dp, 'dragon', source); } }
                                     checkWin();
                                 }
                             }
@@ -1036,98 +1132,39 @@
                         return;
                     }
 
-                    // 현우 탁구공 충돌 로직
                     if (bodyA.label === 'hyunwoo_pingpong' || bodyB.label === 'hyunwoo_pingpong') {
-                        const pingpong = bodyA.label === 'hyunwoo_pingpong' ? bodyA : bodyB; 
-                        const other = bodyA.label === 'hyunwoo_pingpong' ? bodyB : bodyA;
-                        
-                        if (other.label === 'wall') { 
-                            playSound('bounce'); 
-                            return; 
-                        }
-                        
+                        const pingpong = bodyA.label === 'hyunwoo_pingpong' ? bodyA : bodyB; const other = bodyA.label === 'hyunwoo_pingpong' ? bodyB : bodyA;
+                        if (other.label === 'wall') { playSound('bounce'); return; }
                         let dp = players.find(p => p.ball === other);
                         if (dp) { 
-                            let hw = pingpong.customData.source;
-                            const ap = players[currentPlayerIndex];
-                            const activePhysicalPlayer = ap.dominating ? ap.dominating : ap;
-
+                            let hw = pingpong.customData.source; const ap = players[currentPlayerIndex]; const activePhysicalPlayer = ap.dominating ? ap.dominating : ap;
                             if (dp === hw) {
-                                // 스파이크 날아가는 도중이거나 현우 턴이 아니면 무시
                                 if (pingpong.customData.isSpike || activePhysicalPlayer !== hw) return;
-
-                                const hwMaxB = Math.max(1, CHARACTERS['HYUNWOO'].maxBounces - (hw.dominatedBy ? 1 : 0));
+                                const hwMaxB = Math.max(1, CHARACTERS['HYUNWOO'].maxBounces - (hw.dominatedBy ? 1 : 0) + (hw.fingerFracture ? 1 : 0));
                                 if (hw.skillCharge >= hwMaxB) {
-                                    // 현우 턴 + 스킬 차징된 상태에서 직접 탁구공을 들이받았을 때 -> 관통 유도 스파이크 발동!
-                                    hw.skillCharge = 0;
-                                    pingpong.customData.isSpike = true;
-                                    pingpong.customData.spikeStartTime = Date.now();
-                                    pingpong.customData.piercedIds = new Set();
-                                    pingpong.isSensor = true; // 적들을 뚫고 지나가는 관통 속성 부여!
-                                    pingpong.render.fillStyle = '#f97316';
-                                    pingpong.render.strokeStyle = '#fef08a';
-                                    
-                                    showFloatingText("💥 스파이크!!", pingpong.position, '#f97316', '24px');
-                                    playSound('hit');
-                                    
+                                    hw.skillCharge = 0; pingpong.customData.isSpike = true; pingpong.customData.spikeStartTime = Date.now(); pingpong.customData.piercedIds = new Set();
+                                    pingpong.isSensor = true; pingpong.render.fillStyle = '#f97316'; pingpong.render.strokeStyle = '#fef08a';
+                                    showFloatingText("💥 스파이크!!", pingpong.position, '#f97316', '24px'); playSound('hit');
                                     const enemies = getAlivePlayers().filter(p => p !== hw);
                                     if (enemies.length > 0) {
                                         let furthest = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, hw.ball.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, hw.ball.position)))[0];
-                                        pingpong.customData.spikeTarget = furthest;
-                                        let dir = Vector.normalise(Vector.sub(furthest.ball.position, pingpong.position));
-                                        Body.setVelocity(pingpong, Vector.mult(dir, 26));
-                                    } else {
-                                        Composite.remove(engine.world, pingpong);
-                                        hw.pingpongBall = null;
-                                    }
+                                        pingpong.customData.spikeTarget = furthest; let dir = Vector.normalise(Vector.sub(furthest.ball.position, pingpong.position)); Body.setVelocity(pingpong, Vector.mult(dir, 26));
+                                    } else { Composite.remove(engine.world, pingpong); hw.pingpongBall = null; }
                                     updateUI();
                                 } else {
-                                    // 현우 턴 + 스킬 미차징 상태일 때 들이받으면 그대로 서브(랠리) 연계!
-                                    showFloatingText("🏓 서브 랠리!", pingpong.position, '#ffffff', '14px');
-                                    playSound('bounce');
-                                    let sp = Vector.magnitude(pingpong.velocity);
-                                    let nv = Vector.normalise(pingpong.velocity);
+                                    showFloatingText("🏓 랠리!", pingpong.position, '#ffffff', '14px'); playSound('bounce');
+                                    let sp = Vector.magnitude(pingpong.velocity); let nv = Vector.normalise(pingpong.velocity);
                                     if (nv.x === 0 && nv.y === 0) nv = Vector.normalise(Vector.sub(pingpong.position, hw.ball.position));
                                     Body.setVelocity(pingpong, Vector.mult(nv, Math.max(sp, 18)));
                                 }
                             } else {
                                 if (pingpong.customData.isSpike) {
                                     let target = pingpong.customData.spikeTarget;
-                                    // 타겟이 이미 죽었다면 남은 적 중 가장 먼 적 재탐색
-                                    if (!target || target.isDead) {
-                                        const rem = getAlivePlayers().filter(p => p !== hw);
-                                        target = rem.length > 0 ? rem.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, pingpong.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, pingpong.position)))[0] : dp;
-                                        pingpong.customData.spikeTarget = target;
-                                    }
-
-                                    if (dp === target) {
-                                        // 최종 타겟(가장 먼 적) 적중 시 30 데미지 후 깨지며 소멸!
-                                        dealDamage(dp, 30, hw);
-                                        showFloatingText("💥 스파이크 적중!", dp.ball.position, '#f97316', '22px');
-                                        playSound('hit');
-                                        createShockwave(pingpong.position.x, pingpong.position.y, 110, 'rgba(249,115,22,0.85)');
-                                        Composite.remove(engine.world, pingpong);
-                                        hw.pingpongBall = null;
-                                        checkWin();
-                                    } else {
-                                        // 경로상의 다른 적을 관통할 때 5 데미지!
-                                        if (!pingpong.customData.piercedIds.has(dp.id)) {
-                                            pingpong.customData.piercedIds.add(dp.id);
-                                            dealDamage(dp, 5, hw);
-                                            showFloatingText("⚡ 관통!", dp.ball.position, '#fbbf24', '16px');
-                                            playSound('bounce');
-                                            checkWin();
-                                        }
-                                    }
+                                    if (!target || target.isDead) { const rem = getAlivePlayers().filter(p => p !== hw); target = rem.length > 0 ? rem.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, pingpong.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, pingpong.position)))[0] : dp; pingpong.customData.spikeTarget = target; }
+                                    if (dp === target) { dealDamage(dp, 30, hw); showFloatingText("💥 스파이크 적중!", dp.ball.position, '#f97316', '22px'); playSound('hit'); createShockwave(pingpong.position.x, pingpong.position.y, 110, 'rgba(249,115,22,0.85)'); Composite.remove(engine.world, pingpong); hw.pingpongBall = null; checkWin(); } 
+                                    else { if (!pingpong.customData.piercedIds.has(dp.id)) { pingpong.customData.piercedIds.add(dp.id); dealDamage(dp, 5, hw); showFloatingText("⚡ 관통!", dp.ball.position, '#fbbf24', '16px'); playSound('bounce'); checkWin(); } }
                                 } else {
-                                    // 일반 탁구공 충돌 시 (현우 턴일 때만 1~2 피해)
-                                    if (players[currentPlayerIndex] === hw) {
-                                        dealDamage(dp, Math.floor(Math.random()*2)+1, hw);
-                                        playSound('hit');
-                                        let nv = Vector.normalise(Vector.sub(pingpong.position, dp.ball.position));
-                                        Body.setVelocity(pingpong, Vector.mult(nv, 12));
-                                        checkWin();
-                                    }
+                                    if (players[currentPlayerIndex] === hw) { dealDamage(dp, Math.floor(Math.random()*2)+1, hw); playSound('hit'); let nv = Vector.normalise(Vector.sub(pingpong.position, dp.ball.position)); Body.setVelocity(pingpong, Vector.mult(nv, 12)); checkWin(); }
                                 }
                             }
                         }
@@ -1138,123 +1175,78 @@
                     if (bodyA.label === 'wall' || bodyB.label === 'wall') {
                         let hp = pA || pB; if (!hp || hp.isDead) return;
                         if (hp.isDebuffed) { dealDamage(hp, Math.floor(Math.random()*2)+1); playSound('hit'); }
+                        
+                        // 기욱 넉백 충돌 피해
                         if (hp.isGiukKnocked) { dealDamage(hp, Math.floor(Math.random()*2)+1); playSound('hit'); showFloatingText("-1 (충돌)", hp.ball.position, '#f97316', '12px'); }
+                        // 태성 심장 파괴자 벽 충돌 피해
                         if (hp.isHeartBroken) { dealDamage(hp, 10); showFloatingText("-10 (분쇄)", hp.ball.position, '#991b1b'); hp.isHeartBroken = false; }
 
                         const ap = players[currentPlayerIndex];
                         const activePhysicalPlayer = ap.dominating ? ap.dominating : ap;
                         if (hp === activePhysicalPlayer && now - lastWallBounceTime > 50) {
                             lastWallBounceTime = now; playSound('bounce');
-                            if (!activePhysicalPlayer.werewolf && activePhysicalPlayer.charKey !== 'TAESEONG' && activePhysicalPlayer.charKey !== 'GIUK') {
-                                let maxB = activePhysicalPlayer.charKey==='CHANHWI' ? activePhysicalPlayer.targetBounces : (CHARACTERS[activePhysicalPlayer.charKey].maxBounces===0?0:Math.max(1, CHARACTERS[activePhysicalPlayer.charKey].maxBounces - (activePhysicalPlayer.dominatedBy ? 1 : 0)));
+                            
+                            // 시호 스킬 시전 중에는 다른 캐릭터의 벽 튕김 스킬 충전 및 발동 전면 차단
+                            if (!shihoSkillActive && !activePhysicalPlayer.werewolf && activePhysicalPlayer.charKey !== 'TAESEONG' && activePhysicalPlayer.charKey !== 'GIUK') {
+                                const fMod = activePhysicalPlayer.fingerFracture ? 1 : 0;
+                                let maxB = activePhysicalPlayer.charKey==='CHANHWI' ? (activePhysicalPlayer.targetBounces + fMod) : (CHARACTERS[activePhysicalPlayer.charKey].maxBounces===0?0:Math.max(1, CHARACTERS[activePhysicalPlayer.charKey].maxBounces - (activePhysicalPlayer.dominatedBy ? 1 : 0) + fMod));
                                 if (activePhysicalPlayer.charKey === 'CHANHWI') { if (activePhysicalPlayer.skillCharge < maxB) activePhysicalPlayer.skillCharge++; if (activePhysicalPlayer.skillCharge >= maxB) { updateUI(); startRussianRoulette(activePhysicalPlayer); return; } } 
                                 else {
                                     if (activePhysicalPlayer.skillCharge < maxB) activePhysicalPlayer.skillCharge++;
-                                    
                                     if (activePhysicalPlayer.charKey === 'NAMGYU' && activePhysicalPlayer.skillCharge >= maxB) { activePhysicalPlayer.skillCharge=0; const ts=getAlivePlayers().filter(p=>p!==activePhysicalPlayer); if(ts.length>0){const tp=ts.sort((a,b)=>Vector.magnitude(Vector.sub(a.ball.position,activePhysicalPlayer.ball.position))-Vector.magnitude(Vector.sub(b.ball.position,activePhysicalPlayer.ball.position)))[0]; const nv=Vector.normalise(Vector.sub(tp.ball.position,activePhysicalPlayer.ball.position)); const pr=Bodies.circle(activePhysicalPlayer.ball.position.x+nv.x*35,activePhysicalPlayer.ball.position.y+nv.y*35,8,{isSensor:true,label:'namgyu_proj',render:{fillStyle:'#f59e0b'}}); Composite.add(engine.world,pr); Body.setVelocity(pr,{x:nv.x*18,y:nv.y*18}); playSound('fire_jjonku');} }
                                     if (activePhysicalPlayer.charKey === 'YONGWOO' && activePhysicalPlayer.skillCharge >= maxB) { activePhysicalPlayer.skillCharge=0; const rx=50+Math.random()*(GAME_WIDTH-100); const ry=50+Math.random()*(GAME_HEIGHT-100); const el=document.createElement('div'); el.className='absolute bg-blue-500 rounded-full flex items-center justify-center text-lg shadow-[0_0_15px_rgba(59,130,246,0.8)] border-2 border-cyan-300'; el.style.width='36px';el.style.height='36px';el.style.left=`${(rx/GAME_WIDTH)*100}%`;el.style.top=`${(ry/GAME_HEIGHT)*100}%`;el.style.transform='translate(-50%,-50%)';el.innerText='🚿';fxLayer.appendChild(el);showers.push({position:{x:rx,y:ry},element:el}); }
                                     if (activePhysicalPlayer.charKey === 'JUNWON') { checkJunwonSkill(activePhysicalPlayer); }
-                                    
-                                    // 동우 스킬 발사 (Matter.js 옵션 충돌 완벽 해결)
-                                    if (activePhysicalPlayer.charKey === 'DONGWOO' && activePhysicalPlayer.skillCharge >= maxB) {
-                                        activePhysicalPlayer.skillCharge = 0;
-                                        if (!activePhysicalPlayer.dongwooProbs) {
-                                            activePhysicalPlayer.dongwooProbs = { snake: 0.70, imugi: 0.25, dragon: 0.05 };
-                                            activePhysicalPlayer.snakeStacks = 0;
-                                            activePhysicalPlayer.imugiStacks = 0;
-                                            activePhysicalPlayer.dragonStacks = 0;
-                                        }
-                                        
-                                        let r = Math.random();
-                                        let pProbs = activePhysicalPlayer.dongwooProbs;
-                                        let type = 'snake';
-                                        
-                                        if (r < pProbs.snake) type = 'snake';
-                                        else if (r < pProbs.snake + pProbs.imugi) type = 'imugi';
-                                        else type = 'dragon';
-                                        
-                                        if (type === 'imugi' && pProbs.snake > 0) activePhysicalPlayer.dongwooProbs = { snake: 0, imugi: 0.95, dragon: 0.05 };
-                                        if (type === 'dragon' && pProbs.imugi > 0) activePhysicalPlayer.dongwooProbs = { snake: 0, imugi: 0, dragon: 1.0 };
-                                        
-                                        const ts = getAlivePlayers().filter(p => p !== activePhysicalPlayer);
-                                        if (ts.length > 0) {
-                                            let tp = ts[0];
-                                            let maxDist = -1; let minDist = Infinity;
-                                            
-                                            ts.forEach(enemy => {
-                                                let dx = enemy.ball.position.x - activePhysicalPlayer.ball.position.x;
-                                                let dy = enemy.ball.position.y - activePhysicalPlayer.ball.position.y;
-                                                let d = dx * dx + dy * dy;
-                                                if (type === 'dragon') { if (d > maxDist) { maxDist = d; tp = enemy; } } 
-                                                else { if (d < minDist) { minDist = d; tp = enemy; } }
-                                            });
-                                            
-                                            let dx = tp.ball.position.x - activePhysicalPlayer.ball.position.x;
-                                            let dy = tp.ball.position.y - activePhysicalPlayer.ball.position.y;
-                                            let dist = Math.sqrt(dx * dx + dy * dy);
-                                            let nv = { x: 0, y: -1 };
-                                            if (dist > 0) { nv.x = dx / dist; nv.y = dy / dist; }
-                                            
-                                            let color = type === 'snake' ? '#22c55e' : (type === 'imugi' ? '#3b82f6' : '#eab308');
-                                            let speed = type === 'snake' ? 18 : (type === 'imugi' ? 22 : 14);
-                                            let radius = type === 'snake' ? 12 : (type === 'imugi' ? 16 : 22);
-                                            
-                                            const pr = Bodies.circle(
-                                                activePhysicalPlayer.ball.position.x + nv.x * (radius + 28), 
-                                                activePhysicalPlayer.ball.position.y + nv.y * (radius + 28), 
-                                                radius, 
-                                                {
-                                                    isSensor: true,
-                                                    frictionAir: 0,
-                                                    restitution: 1,
-                                                    label: 'dongwoo_proj_' + type,
-                                                    render: { fillStyle: color, strokeStyle: '#ffffff', lineWidth: 3 }
-                                                }
-                                            );
-                                            // 물리 엔진 옵션 에러 방지를 위해 생성 후 별도로 데이터 할당
-                                            pr.customData = { hitPlayers: new Set(), source: activePhysicalPlayer, target: tp, spawnTime: Date.now() };
-                                            
-                                            Composite.add(engine.world, pr);
-                                            Body.setVelocity(pr, { x: nv.x * speed, y: nv.y * speed });
-                                            
-                                            playSound('fire_jjonku');
-                                            showFloatingText(type==='snake'?'🐍 뱀 발사!':(type==='imugi'?'🌊🐉 이무기 발사!':'👑🐉 용 승천!!'), activePhysicalPlayer.ball.position, color, '18px');
-                                        }
-                                    }
                                 }
+                            }
+                            
+                            if (!shihoSkillActive && activePhysicalPlayer.charKey === 'SHIHO' && activePhysicalPlayer.skillCharge < (CHARACTERS['SHIHO'].maxBounces - (activePhysicalPlayer.dominatedBy ? 1 : 0) + (activePhysicalPlayer.fingerFracture ? 1 : 0))) {
+                                activePhysicalPlayer.skillCharge++;
                             }
                             updateUI(); checkWin();
                         }
                     }
 
                     if (pA && pB && !pA.isDead && !pB.isDead) {
-                        let tP = (pA.charKey === 'TAESEONG') ? pA : ((pB.charKey === 'TAESEONG') ? pB : null);
-                        let otherP = (tP === pA) ? pB : pA;
-                        const aliveCount = getAlivePlayers().length;
-                        const is1v1 = aliveCount === 2;
-                        const taeseongMaxHits = is1v1 ? 3 : CHARACTERS['TAESEONG'].maxHits;
-
-                        if (tP && !tP.isDead) {
-                            if (is1v1 && !tP.was1v1) {
-                                tP.was1v1 = true; tP.hitCharge = 0;
-                                if (tP.dominating) { tP.dominating.dominatedBy = null; Body.setPosition(tP.ball, { x: GAME_WIDTH/2, y: GAME_HEIGHT/2 }); tP.ball.isSensor = false; tP.dominating = null; }
+                        // 시호 스킬 시전 중 2뎀 및 5% 시간삭제 부여
+                        if (shihoSkillActive && activeShihoPlayer && !activeShihoPlayer.isDead && (pA === activeShihoPlayer || pB === activeShihoPlayer)) {
+                            let vic = (pA === activeShihoPlayer) ? pB : pA;
+                            if (now - (vic.lastHitTime || 0) < 300) return; 
+                            vic.lastHitTime = now;
+                            
+                            dealDamage(vic, 2, activeShihoPlayer); 
+                            playSound('hit');
+                            
+                            if (!vic.timeErase && Math.random() < (cheatProbUp ? 1.0 : 0.05)) { 
+                                vic.timeErase = true; 
+                                showFloatingText("⏳ 시간삭제!", vic.ball.position, '#a855f7', '18px'); 
                             }
+                            updateUI(); checkWin(); return; 
                         }
 
-                        if (tP && otherP && tP.hitCharge >= taeseongMaxHits && !tP.dominating && !otherP.dominating && !otherP.dominatedBy && !tP.isDead && !otherP.isDead) {
+                        // 태성의 1:1 기믹 및 군주의 지배 (충돌 시 즉시 발동)
+                        let tP = (pA.charKey === 'TAESEONG') ? pA : ((pB.charKey === 'TAESEONG') ? pB : null); let otherP = (tP === pA) ? pB : pA;
+                        const aliveCount = getAlivePlayers().length; const is1v1 = aliveCount === 2;
+                        const taeseongMaxHits = (is1v1 ? 3 : CHARACTERS['TAESEONG'].maxHits) + (tP && tP.fingerFracture ? 1 : 0);
+
+                        if (tP && !tP.isDead) { 
+                            if (is1v1 && !tP.was1v1) { 
+                                tP.was1v1 = true; tP.hitCharge = 0; 
+                                if (tP.dominating) { tP.dominating.dominatedBy = null; Body.setPosition(tP.ball, { x: GAME_WIDTH/2, y: GAME_HEIGHT/2 }); tP.ball.isSensor = false; tP.dominating = null; } 
+                            } 
+                        }
+
+                        if (!shihoSkillActive && tP && otherP && tP.hitCharge >= taeseongMaxHits && !tP.dominating && !otherP.dominating && !otherP.dominatedBy && !tP.isDead && !otherP.isDead) {
                             tP.hitCharge = 0; 
                             if (is1v1) {
-                                showFloatingText("심장 파괴자!!", otherP.ball.position, '#991b1b', '24px'); playSound('hit');
-                                dealDamage(otherP, 20, tP); otherP.isHeartBroken = true;
+                                showFloatingText("심장 파괴자!!", otherP.ball.position, '#991b1b', '24px'); playSound('hit'); dealDamage(otherP, 20, tP); otherP.isHeartBroken = true;
                                 const dir = Vector.normalise(Vector.sub(otherP.ball.position, tP.ball.position));
                                 setTimeout(() => { Body.setPosition(tP.ball, { x: otherP.ball.position.x + dir.x * 50, y: otherP.ball.position.y + dir.y * 50 }); Body.setVelocity(otherP.ball, { x: dir.x * 25, y: dir.y * 25 }); Body.setVelocity(tP.ball, { x: 0, y: 0 }); }, 10);
-                                return;
                             } else {
                                 tP.dominating = otherP; otherP.dominatedBy = tP; tP.dominationRoundFlag = false;
                                 showFloatingText("군주의 지배!", otherP.ball.position, '#9333ea', '22px'); playSound('eat');
                                 Body.setPosition(tP.ball, {x: -9999, y: -9999}); tP.ball.isSensor = true; Body.setVelocity(tP.ball, {x:0, y:0});
-                                return; 
                             }
+                            return;
                         }
 
                         if (eatenPlayer) return; 
@@ -1264,53 +1256,65 @@
                         
                         let vic = (pA === activePhysicalPlayer) ? pB : pA;
                         
+                        // 개별 타격 쿨타임
                         if (now - (vic.lastHitTime || 0) < 300) return; vic.lastHitTime = now;
                         
+                        // 시호 스킬 시전 중 타인이 다른 캐릭터를 공격하려 할 때 회피 처리
+                        if (shihoSkillActive && activePhysicalPlayer !== activeShihoPlayer) {
+                            if (vic === activeShihoPlayer) {
+                                showFloatingText("⏳ 시간 삭제로 회피!", vic.ball.position, '#a855f7', '16px');
+                            } else {
+                                showFloatingText("⏳ 시간 가속으로 공격 회피!", vic.ball.position, '#38bdf8', '16px');
+                            }
+                            return;
+                        }
+
                         if (activePhysicalPlayer.isWet && Math.random() < 0.5) { showFloatingText("미끄러짐!", vic.ball.position, '#3b82f6'); return; }
 
                         let dmg = 5; let miss = false;
                         if (activePhysicalPlayer.werewolf) { if(Math.random()*100<=activePhysicalPlayer.accuracy){dmg=7;playSound('hit');}else{dmg=0;miss=true;showFloatingText('빗나감!',vic.ball.position,'#94a3b8');} }
                         else {
-                            if (activePhysicalPlayer.charKey==='ME' && activePhysicalPlayer.skillCharge>=CHARACTERS['ME'].maxBounces) {
-                                if (vic.charKey==='HYUNMIN' && vic.skillCharge>=CHARACTERS['HYUNMIN'].maxBounces) dealDamage(vic,0,activePhysicalPlayer);
+                            if (activePhysicalPlayer.charKey==='ME' && activePhysicalPlayer.skillCharge>=(CHARACTERS['ME'].maxBounces + (activePhysicalPlayer.fingerFracture ? 1 : 0))) {
+                                if (vic.charKey==='HYUNMIN' && vic.skillCharge>=(CHARACTERS['HYUNMIN'].maxBounces + (vic.fingerFracture ? 1 : 0))) dealDamage(vic,0,activePhysicalPlayer);
                                 else { showFloatingText('꿀꺽!', vic.ball.position, '#38bdf8'); playSound('eat'); eatenPlayer=vic; eaterPlayer=activePhysicalPlayer; eatenPlayer.ball.isSensor=true; Body.setPosition(eatenPlayer.ball,{x:-9999,y:-9999}); Body.setVelocity(eatenPlayer.ball,{x:0,y:0}); Body.setVelocity(activePhysicalPlayer.ball,{x:0,y:0}); dmg=0; }
-                            } else if (activePhysicalPlayer.charKey==='DOHYEON' && activePhysicalPlayer.skillCharge>=CHARACTERS['DOHYEON'].maxBounces) { activePhysicalPlayer.skillCharge=0; dmg=30; playSound('kkang'); showFloatingText("물병샷!", vic.ball.position, '#4ade80'); }
+                            } else if (activePhysicalPlayer.charKey==='DOHYEON' && activePhysicalPlayer.skillCharge>=(CHARACTERS['DOHYEON'].maxBounces + (activePhysicalPlayer.fingerFracture ? 1 : 0))) { activePhysicalPlayer.skillCharge=0; dmg=30; playSound('kkang'); showFloatingText("물병샷!", vic.ball.position, '#4ade80'); }
                             else {
-                                if (activePhysicalPlayer.charKey==='HYUNMIN') { if (Math.random()<0.15) { dmg=20; playSound('hit'); showFloatingText("등짝스매싱!", vic.ball.position, '#f43f5e'); } else { dmg=1; playSound('hit'); } } else playSound('hit');
-                                if (activePhysicalPlayer.charKey==='DONGHO' && activePhysicalPlayer.hitCharge<CHARACTERS['DONGHO'].maxHits) activePhysicalPlayer.hitCharge++;
-                                if (activePhysicalPlayer.charKey==='TAESEONG') { const tMaxH = (getAlivePlayers().length === 2) ? 3 : CHARACTERS['TAESEONG'].maxHits; if (activePhysicalPlayer.hitCharge < tMaxH) activePhysicalPlayer.hitCharge++; }
+                                const fModAtk = activePhysicalPlayer.fingerFracture ? 1 : 0;
+                                if (activePhysicalPlayer.charKey==='HYUNMIN') { if (Math.random()<(cheatProbUp ? 1.0 : 0.15)) { dmg=20; playSound('hit'); showFloatingText("등짝스매싱!", vic.ball.position, '#f43f5e'); } else { dmg=1; playSound('hit'); } } else playSound('hit');
+                                if (activePhysicalPlayer.charKey==='DONGHO' && activePhysicalPlayer.hitCharge<(CHARACTERS['DONGHO'].maxHits + fModAtk)) activePhysicalPlayer.hitCharge++;
+                                if (activePhysicalPlayer.charKey==='TAESEONG') { const tMaxH = ((getAlivePlayers().length === 2) ? 3 : CHARACTERS['TAESEONG'].maxHits) + fModAtk; if (activePhysicalPlayer.hitCharge < tMaxH) activePhysicalPlayer.hitCharge++; }
                                 
-                                if (activePhysicalPlayer.charKey === 'GIUK' && activePhysicalPlayer.hitCharge < CHARACTERS['GIUK'].maxHits) {
+                                if (activePhysicalPlayer.charKey === 'GIUK' && activePhysicalPlayer.hitCharge < (CHARACTERS['GIUK'].maxHits + fModAtk)) {
                                     activePhysicalPlayer.hitCharge++; checkGiukSkill(activePhysicalPlayer);
                                 }
+                                if (!shihoSkillActive && activePhysicalPlayer.charKey === 'SHIHO' && activePhysicalPlayer.hitCharge < (CHARACTERS['SHIHO'].maxHits + fModAtk)) { 
+                                    activePhysicalPlayer.hitCharge++; 
+                                }
                                 
-                                // 윤성: 벽 튕김 3회 + 타격 3회 모두 달성 시 발동
+                                // 윤성: 벽 튕김 3회 + 타격 3회 모두 달성 시 발동 (잘려나갔던 부분 복구!)
                                 if (activePhysicalPlayer.charKey === 'YOONSUNG') {
-                                    if (activePhysicalPlayer.hitCharge < CHARACTERS['YOONSUNG'].maxHits) {
-                                        activePhysicalPlayer.hitCharge++;
-                                    }
-                                    const yMaxB = Math.max(1, CHARACTERS['YOONSUNG'].maxBounces - (activePhysicalPlayer.dominatedBy ? 1 : 0));
-                                    if (activePhysicalPlayer.skillCharge >= yMaxB && activePhysicalPlayer.hitCharge >= CHARACTERS['YOONSUNG'].maxHits) {
-                                        activePhysicalPlayer.skillCharge = 0;
-                                        activePhysicalPlayer.hitCharge = 0;
-                                        let isKick = Math.random() < 0.5;
-                                        if (isKick) {
-                                            showFloatingText("🦵 발차기!", activePhysicalPlayer.ball.position, '#f97316', '20px');
-                                            let r = Math.random();
-                                            if (r < 0.333) { vic.legFracture = true; vic.legFractureRoundFlag = false; showFloatingText("다리 골절!", vic.ball.position, '#ef4444'); }
-                                            else if (r < 0.666) { vic.armFracture = true; vic.armFractureRoundFlag = false; showFloatingText("팔 골절!", vic.ball.position, '#ef4444'); }
+                                    const yMaxH = CHARACTERS['YOONSUNG'].maxHits + fModAtk;
+                                    if (activePhysicalPlayer.hitCharge < yMaxH) activePhysicalPlayer.hitCharge++;
+                                    const yMaxB = Math.max(1, CHARACTERS['YOONSUNG'].maxBounces - (activePhysicalPlayer.dominatedBy ? 1 : 0) + fModAtk);
+                                    
+                                    if (activePhysicalPlayer.skillCharge >= yMaxB && activePhysicalPlayer.hitCharge >= yMaxH) {
+                                        activePhysicalPlayer.skillCharge = 0; activePhysicalPlayer.hitCharge = 0;
+                                        if (Math.random() < 0.5) {
+                                            showFloatingText("🦵 발차기!", activePhysicalPlayer.ball.position, '#f97316', '20px'); let r = Math.random();
+                                            if (r < 0.30) { vic.legFracture = true; vic.legFractureRoundFlag = false; showFloatingText("다리 골절!", vic.ball.position, '#ef4444'); }
+                                            else if (r < 0.60) { vic.armFracture = true; vic.armFractureRoundFlag = false; showFloatingText("팔 골절!", vic.ball.position, '#ef4444'); }
                                             else { vic.fingerFracture = true; vic.fingerFractureRoundFlag = false; showFloatingText("손가락 골절!", vic.ball.position, '#ef4444'); }
-                                            dmg += 15;
+                                            dmg = 40;
                                         } else {
                                             showFloatingText("👊 지르기!", activePhysicalPlayer.ball.position, '#f97316', '20px');
-                                            if (Math.random() < 0.05) { 
+                                            dmg = 35;
+                                            if (Math.random() < (cheatProbUp ? 1.0 : 0.05)) { 
                                                 vic.critDoom = true; 
-                                                showFloatingText("치명타 표식!!", vic.ball.position, '#ef4444', '20px'); 
-                                                dmg += 5; 
+                                                showFloatingText("💥 치명타 표식!!", vic.ball.position, '#ef4444', '20px'); 
                                             } else { 
-                                                vic.bruiseTimer = Date.now(); 
-                                                showFloatingText("멍!", vic.ball.position, '#a855f7'); 
-                                                dmg += 10; 
+                                                vic.isBruised = true; 
+                                                vic.bruiseRoundFlag = false;
+                                                showFloatingText("🟣 멍!", vic.ball.position, '#a855f7'); 
                                             }
                                         }
                                     }
@@ -1318,10 +1322,6 @@
                             }
                         }
                         if (activePhysicalPlayer.charKey==='NAMGYU' && !miss) { vic.hitsFromNamgyu++; if(vic.hitsFromNamgyu===5) applyDiabetes(vic); }
-                        
-                        // 멍 추가피해 적용
-                        if (vic.bruiseTimer && Date.now() - vic.bruiseTimer < 10000) { dmg *= 2; showFloatingText("멍 2배피해!", vic.ball.position, '#a855f7'); }
-                        
                         if (!miss && dmg>0) dealDamage(vic, dmg, activePhysicalPlayer); updateUI(); checkWin();
                     }
                 });
@@ -1329,46 +1329,31 @@
 
             Events.on(engine, 'beforeUpdate', () => {
                 const now = Date.now();
+
+                // 시호 스킬 유지 로직 (상태(MOVING, AIMING)와 무관하게 20초 내내 초고속 유지)
+                if (shihoSkillActive && activeShihoPlayer && !activeShihoPlayer.isDead) {
+                    activeShihoPlayer.ball.frictionAir = 0;
+                    activeShihoPlayer.ball.restitution = 1.05;
+                    const sp = Vector.magnitude(activeShihoPlayer.ball.velocity);
+                    const targetSpeed = 180;
+                    
+                    if (sp < targetSpeed * 0.95) {
+                        if (sp > 0.1) {
+                            Body.setVelocity(activeShihoPlayer.ball, Vector.mult(activeShihoPlayer.ball.velocity, targetSpeed / sp));
+                        } else {
+                            const randAngle = Math.random() * Math.PI * 2;
+                            Body.setVelocity(activeShihoPlayer.ball, { x: Math.cos(randAngle) * targetSpeed, y: Math.sin(randAngle) * targetSpeed });
+                        }
+                    } else if (sp > targetSpeed * 1.5) {
+                         Body.setVelocity(activeShihoPlayer.ball, Vector.mult(activeShihoPlayer.ball.velocity, targetSpeed / sp));
+                    }
+                }
+
                 if (gameState !== 'MOVING') return;
 
-                // 용(Dragon) 투사체 및 현우 스파이크 유도 로직
-                Composite.allBodies(engine.world).forEach(b => {
-                    if (b.label === 'dongwoo_proj_dragon' && b.customData && b.customData.target) {
-                        let t = b.customData.target;
-                        if (!t.isDead) {
-                            let dir = Vector.normalise(Vector.sub(t.ball.position, b.position));
-                            Body.setVelocity(b, Vector.mult(dir, 14)); 
-                        }
-                    }
-                    if (b.label === 'hyunwoo_pingpong' && b.customData && b.customData.isSpike) {
-                        let t = b.customData.spikeTarget;
-                        let hw = b.customData.source;
-                        // 스파이크 발사 후 4초 이상 지나도 못 맞췄으면 무한 루프 방지를 위해 강제 소멸
-                        if (b.customData.spikeStartTime && now - b.customData.spikeStartTime > 4000) {
-                            Composite.remove(engine.world, b);
-                            if (hw) hw.pingpongBall = null;
-                            return;
-                        }
-                        if (!t || t.isDead) {
-                            const enemies = getAlivePlayers().filter(p => p !== hw);
-                            if (enemies.length > 0) {
-                                t = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, b.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, b.position)))[0];
-                                b.customData.spikeTarget = t;
-                            } else {
-                                Composite.remove(engine.world, b);
-                                if (hw) hw.pingpongBall = null;
-                                return;
-                            }
-                        }
-                        if (t && !t.isDead) {
-                            let dir = Vector.normalise(Vector.sub(t.ball.position, b.position));
-                            Body.setVelocity(b, Vector.mult(dir, 26));
-                        }
-                    }
-                });
-
                 getAlivePlayers().forEach(p => {
-                    if (p.isCrushed || p.legFracture) { Body.setVelocity(p.ball, Vector.mult(p.ball.velocity, 0.92)); } 
+                    if (p.isCrushed) { Body.setVelocity(p.ball, Vector.mult(p.ball.velocity, 0.92)); } // 으깨짐 느려짐
+                    if (p.isCrushed || p.legFracture) { Body.setVelocity(p.ball, Vector.mult(p.ball.velocity, 0.92)); }
                     if (p.werewolf && p.werewolfTimer > 0) {
                         const el = now - p.werewolfTimer;
                         if (el<17000) { p.ball.frictionAir=0; p.ball.restitution=1.05; const sp=Vector.magnitude(p.ball.velocity); if(sp<18&&sp>0.1) Body.setVelocity(p.ball, Vector.mult(p.ball.velocity, 19/sp)); } 
@@ -1376,7 +1361,7 @@
                     }
                     showers.forEach((s, idx) => {
                         if (Vector.magnitude(Vector.sub(p.ball.position, s.position))<40) {
-                            if (p.charKey==='YONGWOO') { p.hp=Math.min(p.maxHp,p.hp+15); showFloatingText("+15",p.ball.position,'#4ade80'); if(Math.random()<0.3){showFloatingText("물바다!",p.ball.position,'#3b82f6');const oe=document.createElement('div');oe.className='absolute inset-0 bg-blue-500 opacity-40 z-0 transition-opacity';fxLayer.appendChild(oe);let tk=0;clearInterval(floodInterval);floodInterval=setInterval(()=>{if(gameState==='GAMEOVER'){clearInterval(floodInterval);oe.remove();return;}tk++;getAlivePlayers().forEach(ep=>{if(ep!==p){if(!ep.isWet) ep.wetRoundFlag=false; ep.isWet=true;dealDamage(ep,Math.floor(Math.random()*10)+1);}});checkWin();if(tk>=5){clearInterval(floodInterval);oe.style.opacity='0';setTimeout(()=>oe.remove(),500);}},1000);} }
+                            if (p.charKey==='YONGWOO') { p.hp=Math.min(p.maxHp,p.hp+15); showFloatingText("+15",p.ball.position,'#4ade80'); if(Math.random()<(cheatProbUp ? 1.0 : 0.3)){showFloatingText("물바다!",p.ball.position,'#3b82f6');const oe=document.createElement('div');oe.className='absolute inset-0 bg-blue-500 opacity-40 z-0 transition-opacity';fxLayer.appendChild(oe);let tk=0;clearInterval(floodInterval);floodInterval=setInterval(()=>{if(gameState==='GAMEOVER'){clearInterval(floodInterval);oe.remove();return;}tk++;getAlivePlayers().forEach(ep=>{if(ep!==p){if(!ep.isWet) ep.wetRoundFlag=false; ep.isWet=true;dealDamage(ep,Math.floor(Math.random()*10)+1);}});checkWin();if(tk>=5){clearInterval(floodInterval);oe.style.opacity='0';setTimeout(()=>oe.remove(),500);}},1000);} }
                             else { dealDamage(p,10); if(!p.isWet) p.wetRoundFlag = false; p.isWet=true; showFloatingText("젖음!",p.ball.position,'#3b82f6'); Body.applyForce(p.ball,p.ball.position,{x:(Math.random()-0.5)*0.02,y:(Math.random()-0.5)*0.02}); }
                             s.element.remove(); showers.splice(idx,1);
                         }
@@ -1387,35 +1372,35 @@
 
             Events.on(engine, 'afterUpdate', () => {
                 if (eatenPlayer) { Body.setPosition(eatenPlayer.ball, {x:-9999,y:-9999}); Body.setVelocity(eatenPlayer.ball, {x:0,y:0}); }
-                getAlivePlayers().forEach(p => { const sp = Vector.magnitude(p.ball.velocity); if (sp>65) Body.setVelocity(p.ball, Vector.mult(Vector.normalise(p.ball.velocity), 65)); });
                 
-                let waitPingpong = false;
-                const activeP = players[currentPlayerIndex];
-                const physicalTurnPlayer = activeP ? (activeP.dominating ? activeP.dominating : activeP) : null;
-
-                Composite.allBodies(engine.world).forEach(b => {
-                    if (b.label === 'hyunwoo_pingpong') {
-                        const hw = b.customData ? b.customData.source : null;
-                        const isSpike = b.customData && b.customData.isSpike;
-                        const isHwTurn = hw && !hw.isDead && physicalTurnPlayer === hw;
-
-                        // 탁구공은 항상 자유롭게 물리적으로 튕기도록 유지
-                        const sp = Vector.magnitude(b.velocity); 
-                        if (sp > 45) Body.setVelocity(b, Vector.mult(Vector.normalise(b.velocity), 45));
-                        if (sp > 0 && sp < 0.25) Body.setVelocity(b, {x:0, y:0});
-
-                        // 단, 턴 종료 대기 기준은 오직 '현우 턴'이거나 '스파이크 발사 중'일 때만 적용!
-                        if ((isHwTurn || isSpike) && (sp >= 0.25 || isSpike)) {
-                            waitPingpong = true;
-                        }
+                getAlivePlayers().forEach(p => { 
+                    const sp = Vector.magnitude(p.ball.velocity); 
+                    let maxSpeed = 65;
+                    // 시호 스킬 중 속도 제한 별도 해제/강화 적용
+                    if (shihoSkillActive) {
+                        if (p === activeShihoPlayer) { maxSpeed = 220; } 
+                        else { maxSpeed = 8; }
                     }
+                    if (sp > maxSpeed) Body.setVelocity(p.ball, Vector.mult(Vector.normalise(p.ball.velocity), maxSpeed)); 
                 });
-
+                
                 if (gameState === 'MOVING') {
-                    const allStopped = getAlivePlayers().every(p => (p.werewolf&&Date.now()-p.werewolfTimer<20000)?false:Vector.magnitude(p.ball.velocity)<0.6);
-                    if (allStopped && !waitPingpong) {
-                        forceTurnEnd();
-                    }
+                    const allStopped = getAlivePlayers().every(p => {
+                        if (shihoSkillActive && p === activeShihoPlayer) return true; // 시호는 무시하여 남들의 턴이 넘어갈 수 있게 함
+                        if (p.werewolf && Date.now() - p.werewolfTimer < 20000) return false;
+                        return Vector.magnitude(p.ball.velocity) < (shihoSkillActive ? 0.15 : 0.6);
+                    });
+                    
+                    let waitPingpong = false;
+                    Composite.allBodies(engine.world).forEach(b => {
+                        if (b.label === 'hyunwoo_pingpong') {
+                            const isSpike = b.customData && b.customData.isSpike;
+                            const sp = Vector.magnitude(b.velocity);
+                            if (sp >= (shihoSkillActive ? 0.06 : 0.25) || isSpike) waitPingpong = true;
+                        }
+                    });
+
+                    if (allStopped && !waitPingpong) { forceTurnEnd(); }
                 }
             });
         }
@@ -1424,6 +1409,7 @@
             if (gameState === 'GAMEOVER' || gameState === 'ROULETTE') return;
             clearTimeout(turnTimeout); stopDonghoBgm();
 
+            // 군주의 지배 매 턴 체력 흡수
             getAlivePlayers().forEach(p => {
                 if (p.dominating && !p.dominating.isDead && !p.isDead) {
                     dealDamage(p.dominating, 1, p);
@@ -1433,71 +1419,37 @@
             });
 
             getAlivePlayers().forEach(p => { 
+                if (shihoSkillActive && p === activeShihoPlayer) return; // 시호는 절대 멈추지 않음
                 Body.setVelocity(p.ball, {x:0,y:0}); 
-                if(p.werewolf) {
-                    Body.scale(p.ball, 1/1.5, 1/1.5); 
-                    Body.setDensity(p.ball, 0.002); // 폭주 종료 시 원래 무게로 복구
-                }
-                p.ball.frictionAir=0.01; p.ball.restitution=0.9; p.werewolf=false; p.werewolfTimer=0; p.isGiukKnocked = false; 
-            });
-            // 턴 종료 시 필드 위 탁구공도 제자리에 멈춤
-            Composite.allBodies(engine.world).forEach(b => {
-                if (b.label === 'hyunwoo_pingpong') {
-                    Body.setVelocity(b, { x: 0, y: 0 });
-                }
+                if(p.werewolf)Body.scale(p.ball,1/1.5,1/1.5); 
+                p.ball.frictionAir=0.01; p.ball.restitution=0.9; 
+                p.werewolf=false; p.werewolfTimer=0; p.isGiukKnocked = false; 
             });
             if (checkWin()) return;
-            
-            if (eatenPlayer) {
-                let eater = eaterPlayer;
-                if (eater && eater.isStunned) {
-                    eater.isStunned = false;
-                    showFloatingText("💫 기절! (강제 토해냄)", eater.ball.position, '#facc15', '18px');
-                    let angle = Math.random() * Math.PI * 2;
-                    let pullVector = { x: Math.cos(angle) * 150, y: Math.sin(angle) * 150 };
-                    launchPlayerShot(eater, pullVector, 150);
-                    return; 
-                } else {
-                    gameState = 'AIMING'; updateUI(); scheduleAITurnIfNeeded(); 
-                }
-            } 
-            else {
-                getAlivePlayers().forEach(p => { p.isDebuffed=false; });
+
+            if (eatenPlayer) { 
+                gameState = 'AIMING'; updateUI(); scheduleAITurnIfNeeded(); 
+            } else {
+                getAlivePlayers().forEach(p => { p.isDebuffed = false; });
                 
+                // 턴 순서 탐색 및 지배 해제 / 기절 스킵 로직
                 do { 
-                    currentPlayerIndex = (currentPlayerIndex+1)%players.length; 
+                    currentPlayerIndex = (currentPlayerIndex + 1) % players.length; 
                     let cp = players[currentPlayerIndex];
                     
                     if (cp.isDead) continue;
 
-                    // 윤성 치명타 로직
-                    if (cp.critDoom) {
-                        cp.critDoom = false;
-                        showFloatingText("💥 치명타 작렬!!", cp.ball.position, '#991b1b', '28px');
-                        playSound('hit');
-                        dealDamage(cp, 70); 
-                        if (cp.isDead) continue;
-                    }
-
-                    if (cp.isStunned) {
-                        cp.isStunned = false;
-                        showFloatingText("💫 기절로 턴 휴식!", cp.ball.position, '#facc15', '18px');
-                        continue;
-                    }
-
+                    // 시호가 스킬 시전 중이라면 본인의 턴을 건너뛰고 다음 사람에게 넘김
+                    if (shihoSkillActive && cp === activeShihoPlayer) continue;
+                    
+                    if (cp.critDoom) { cp.critDoom = false; showFloatingText("💥 치명타 작렬!!", cp.ball.position, '#991b1b', '28px'); playSound('hit'); dealDamage(cp, 70); if (cp.isDead) continue; }
+                    if (cp.isStunned) { cp.isStunned = false; showFloatingText("💫 기절로 턴 휴식!", cp.ball.position, '#facc15', '18px'); continue; }
                     if (cp.dominating && !cp.isDead) {
                         if (cp.dominationRoundFlag) {
                             if (cp.dominating) cp.dominating.dominatedBy = null;
                             Body.setPosition(cp.ball, { x: Math.max(50, Math.min(GAME_WIDTH-50, cp.dominating.ball.position.x + 45)), y: cp.dominating.ball.position.y });
-                            cp.ball.isSensor = false; cp.dominating = null;
-                            showFloatingText("지배 해제!", cp.ball.position, '#9333ea', '18px');
-                            cp.hp = Math.min(cp.maxHp, cp.hp + 15);
-                            showFloatingText("+15", cp.ball.position, '#22c55e');
-                            break; 
-                        } else {
-                            cp.dominationRoundFlag = true;
-                            break; 
-                        }
+                            cp.ball.isSensor = false; cp.dominating = null; showFloatingText("지배 해제!", cp.ball.position, '#9333ea', '18px'); cp.hp = Math.min(cp.maxHp, cp.hp + 15); showFloatingText("+15", cp.ball.position, '#22c55e'); break; 
+                        } else { cp.dominationRoundFlag = true; break; }
                     }
                     break;
                 } while (true);
@@ -1508,6 +1460,7 @@
                 if (nextCp.legFracture) { if (nextCp.legFractureRoundFlag) { nextCp.legFracture = false; nextCp.legFractureRoundFlag = false; } else { nextCp.legFractureRoundFlag = true; } }
                 if (nextCp.armFracture) { if (nextCp.armFractureRoundFlag) { nextCp.armFracture = false; nextCp.armFractureRoundFlag = false; } else { nextCp.armFractureRoundFlag = true; } }
                 if (nextCp.fingerFracture) { if (nextCp.fingerFractureRoundFlag) { nextCp.fingerFracture = false; nextCp.fingerFractureRoundFlag = false; } else { nextCp.fingerFractureRoundFlag = true; } }
+                if (nextCp.isBruised) { if (nextCp.bruiseRoundFlag) { nextCp.isBruised = false; nextCp.bruiseRoundFlag = false; } else { nextCp.bruiseRoundFlag = true; } }
                 
                 gameState = 'AIMING'; updateUI(); scheduleAITurnIfNeeded();
             }
