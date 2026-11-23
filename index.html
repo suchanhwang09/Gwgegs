@@ -54,6 +54,7 @@
 
     <!-- [1] 메인 화면 -->
     <div id="screen-main" class="screen active bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0b0f19] to-black">
+        <button id="main-cheat-btn" onclick="openCheatAuthModal()" class="absolute top-4 right-4 px-3 py-1.5 bg-slate-900/80 border border-amber-500/40 text-amber-400 font-black text-xs rounded-lg shadow-md z-20 active:scale-95 transition hover:bg-slate-800">🛠️ 치트 OFF</button>
         <div class="text-center mb-10">
             <div class="text-sky-400 font-bold tracking-widest text-sm mb-2 animate-pulse">SLINGSHOT</div>
             <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
@@ -65,7 +66,6 @@
             <button onclick="renderDictionary(); showScreen('screen-dict')" class="w-full py-3 bg-slate-800 border border-slate-600 text-slate-300 font-black text-lg rounded-2xl active:scale-95 transition hover:bg-slate-700">📖 캐릭터 도감</button>
             <button onclick="showScreen('screen-notice')" class="w-full py-3 bg-slate-800 border border-slate-600 text-slate-300 font-black text-lg rounded-2xl active:scale-95 transition hover:bg-slate-700">📢 공지 및 업데이트 내역</button>
         </div>
-        <button id="main-cheat-btn" onclick="openCheatAuthModal()" class="absolute bottom-4 right-4 px-3 py-1.5 bg-slate-900/80 border border-amber-500/40 text-amber-400 font-black text-xs rounded-lg active:scale-95 transition hover:bg-slate-800">🛠️ 치트 OFF</button>
     </div>
 
     <!-- 치트 인증 모달 -->
@@ -122,11 +122,10 @@
                 <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 w-full shrink-0">
                     <h3 class="text-xl font-black text-sky-400 mb-3">🎉 신규 패치 노트</h3>
                     <ul class="list-disc pl-5 space-y-2 text-sm font-bold leading-relaxed break-all whitespace-normal">
-                        <li><span class="text-amber-400">신규 참전 [시호]:</span> 시간 가속(킹크림슨)의 능력자! 5타격/5피격/5튕김 달성 시 10초간 초고속으로 움직이며 턴을 넘깁니다. 상대가 공격을 시도할 때 1.5초간 시간 감속(0.15배속)을 걸어 회피합니다!</li>
-                        <li><span class="text-purple-400">신규 상태이상 [시간삭제]:</span> 시호의 시간가속 중 공격(2뎀)에 맞으면 5% 확률로 부여. 매 턴마다 1의 피해를 입으며, 스킬 종료 시 시호 앞으로 강제 소환되어 30의 강력한 추가 피해를 입습니다!</li>
+                        <li><span class="text-amber-400">신규 참전 [시호]:</span> 시간 가속(킹크림슨)의 능력자! 5타격/5피격/5튕김 달성 시 20초간 절대 멈추지 않는 초고속 이동. 타격 시 5% [시간삭제] 부여. 스킬 종료 시 시간삭제 대상 순간이동 후 30피해.</li>
                         <li><span class="text-sky-400">탁구공 수정 (현우):</span> 턴 종료 시 혹은 스킬 발동 시 탁구공이 부자연스럽게 멈추거나 튕기는 현상을 수정했습니다.</li>
                         <li><span class="text-emerald-400">스킬/상태이상 정정 (윤성):</span> 윤성의 스킬 데미지와 상태이상 효과(골절, 멍, 치명타)가 설계된 수치 그대로 완벽하게 작동하도록 정정되었습니다!</li>
-                        <li><span class="text-rose-400">테스트 치트 모드:</span> 메인 화면 우측 하단에서 [치트 OFF]를 눌러 코드(기욱) 입력 시 활성화. 게임 내에서 대상의 체력 조작, 모든 상태이상 부여, 확률 100% 고정 등이 가능합니다!</li>
+                        <li><span class="text-rose-400">테스트 치트 모드:</span> 메인 화면 우측 상단에서 [치트 OFF]를 눌러 코드(기욱) 입력 시 활성화. 게임 내에서 대상의 체력 조작, 모든 상태이상 부여, 확률 100% 고정 등이 가능합니다!</li>
                     </ul>
                 </div>
 
@@ -137,8 +136,6 @@
                         <li><span class="text-white">동호 소속 변경:</span> 동호 캐릭터의 카테고리가 '일반 학생'에서 '늑대 무리'로 변경되었습니다!</li>
                         <li><span class="text-white">신규 참전 [기욱]:</span> 체력 120의 무거운 떡대 등장! 타격 4회 및 피격 6회 달성 시 폭주하여 가장 가까운 적을 날려버리고 다음 적을 깔아뭉갭니다. (5% 즉사 효과, 으깨짐 부여!)</li>
                         <li><span class="text-white">용우 물바다 상향:</span> 샤워기 함정에 걸렸을 때 물바다 발동 확률이 기존 20%에서 30%로 증가했습니다!</li>
-                        <li><span class="text-white">태성이 스킬 떡상:</span> [군주의 지배] 해제 시 체력 15 회복! 또한 1:1 상황에서는 '심장 파괴자'가 발동해 적 배후로 순간이동하여 날려버립니다.</li>
-                        <li><span class="text-white">현민이 밸런스 패치:</span> 광역 반격 데미지가 너무 강해 40에서 30으로 하향 조정되었습니다.</li>
                     </ul>
                 </div>
 
@@ -761,7 +758,7 @@
                             if (enemies.length > 0) {
                                 let furthest = enemies.sort((a,b) => Vector.magnitudeSquared(Vector.sub(b.ball.position, p.ball.position)) - Vector.magnitudeSquared(Vector.sub(a.ball.position, p.ball.position)))[0];
                                 p.pingpongBall.customData.spikeTarget = furthest;
-                                let spikeDir = Vector.normalise(Vector.sub(furthest.ball.position, p.pingpongBall.position)); Body.setVelocity(p.pingpongBall, Vector.mult(spikeDir, 26)); 
+                                let spikeDir = Vector.normalise(Vector.sub(furthest.ball.position, p.pingpongBall.position)); Body.setVelocity(p.pingpongBall, Vector.mult(spikeDir, 45)); 
                             } else { Composite.remove(engine.world, p.pingpongBall); p.pingpongBall = null; }
                             updateUI();
                         }, 150);
@@ -1291,7 +1288,7 @@
                                     activePhysicalPlayer.hitCharge++; 
                                 }
                                 
-                                // 윤성: 벽 튕김 3회 + 타격 3회 모두 달성 시 발동 (잘려나갔던 부분 복구!)
+                                // 윤성: 벽 튕김 3회 + 타격 3회 모두 달성 시 발동
                                 if (activePhysicalPlayer.charKey === 'YOONSUNG') {
                                     const yMaxH = CHARACTERS['YOONSUNG'].maxHits + fModAtk;
                                     if (activePhysicalPlayer.hitCharge < yMaxH) activePhysicalPlayer.hitCharge++;
